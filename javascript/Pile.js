@@ -7,12 +7,10 @@ var Pile = function () {
     /* La classe Pile est une classe qui crée une pile de pion. */
 
 
+    "use strict";
+    var pile = new Array(5), nbPion = 0, ligne; // Nombre des pions.& Liste des pions
 
-    var pile = new Array(5); // Liste des pions
-    var nbPion = 0; // Nombre des pions.
-
-    var ligne;
-    for (ligne = 0; ligne<5; ligne++) {
+    for (ligne = 0; ligne < 5; ligne = ligne + 1) {
         pile[ligne] = -1; // On initialise la pile
     }
 
@@ -28,18 +26,18 @@ var Pile = function () {
 
     /* La couleur du dernier pion */
     this.getCouleurDernierPion = function () {
-        return pile[nbPion-1];
+        return pile[nbPion - 1];
     };
 
     /* Ajoute un pion si la case est vide*/
     this.ajouterPion = function (color) {
-        if (pile[0] == -1) {
+        if (pile[0] === -1) {
             pile[nbPion] = color;
             nbPion = nbPion + 1;
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     };
 
     /* Ajoute un pion à une pile*/
@@ -48,16 +46,14 @@ var Pile = function () {
         nbPion = nbPion + 1;
     };
 
-    /* Supprime un pion à une pile */
     this.supprimerPion = function () {
-        pile[nbPion-1] = -1;
+        pile[nbPion - 1] = -1;
         nbPion = nbPion - 1;
     };
 
-    /* Supprime une pile. */
     this.supprimerPile = function () {
-        var pile;
-        for(pile = 0;pile<pile.length;pile++){
+        //var pile;
+        for (pile = 0; pile < pile.length; pile = pile + 1) {
             pile[pile] = -1;
         }
         nbPion = 0;
