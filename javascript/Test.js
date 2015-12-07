@@ -8,9 +8,9 @@ projectEngineTestCase.prototype.testInitPlateau = function () {
 
 projectEngineTestCase.prototype.testInitJoueur = function () {
     var e = new Engine();
-    e.initBoard();
-    assertEquals(e.get_pion_joueur(0), 25);
-    assertEquals(e.get_pion_joueur(1), 25);
+    e.init_plateau();
+    assertEquals(e.get_nb_pions_joueur(0), 25);
+    assertEquals(e.get_nb_pions_joueur(1), 25);
     assertEquals(e.get_score_joueur(0), 0);
     assertEquals(e.get_score_joueur(1), 0);
     assertEquals(e.get_joueur_courant(), 0);
