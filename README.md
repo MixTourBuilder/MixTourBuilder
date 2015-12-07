@@ -11,7 +11,12 @@ Promotion de l'entreprise Dieter Stein autour d'un événement sur le jeu MixTou
 - n'hésitez pas à laisser de petits commentaires, mais **surtout** coder avec des variables correctement nommées (pas de 'i', de 'n', etc...)
 pour plus de clareté !
 
-- *Remarque :* Notre IDE est **Webstorm** donc n'hésitez pas à activer ces conventions (JSLint/JSHint)
+Pour les commits :
+- un commit avec la fonction codée et éventuellement testée
+- un commit après refactoring si besoin
+
+
+*Remarque :* Notre IDE est **Webstorm** donc n'hésitez pas à activer ces conventions (JSLint/JSHint)
 
 
 Bon Travail !  
