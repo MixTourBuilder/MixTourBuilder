@@ -7,23 +7,26 @@ var Engine = function () {
         plateau[ligne] = new Array(5);
     }
 
-    var nombre_pions_total = 0;
-    var nombre_pions_joueur1 = 25;
-    var nombre_pions_joueur2 = 25;
+    var nb_pions_total = 0;
+    var nb_pions_joueur1 = 25;
+    var nb_pions_joueur2 = 25;
+    var score_joueur1 = 0;
+    var score_joueur2 = 0;
+    var joueur_courant = 1;
 
     // Initialise le plateau
     this.init_plateau = function () {
         var ligne, colonne;
         for (ligne=0; ligne<plateau.length; ligne++){
             for (colonne=0; colonne<plateau.length; colonne++){
-                plateau[ligne][colonne] = new pile();
+                plateau[ligne][colonne] = new Pile();
             }
         }
     };
 
     // Le nombre de pion total
     this.get_nb_piece_plateau = function () {
-        return nombre_pions_total;
+        return nb_pions_total;
     };
 
 
