@@ -46,11 +46,13 @@ var Pile = function () {
         nbPion = nbPion + 1;
     };
 
+    /* Supprime un pion à une pile */
     this.supprimerPion = function () {
         pile[nbPion - 1] = -1;
         nbPion = nbPion - 1;
     };
 
+    /* Supprime une pile. */
     this.supprimerPile = function () {
         //var pile;
         for (pile = 0; pile < pile.length; pile = pile + 1) {
