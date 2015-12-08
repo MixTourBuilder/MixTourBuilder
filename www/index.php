@@ -5,13 +5,22 @@
 		<link rel="icon" href="images/favicon.jpg" />
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" href="assets/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/slid.css" />
+    <script type="text/javascript" src="assets/js/modernizr.custom.86080.js"></script>
 
 	</head>
 	<body>
 		<header>
-			<h1>Gagnez un Jeu</h1>
+			
 		</header>
-		<div>
+          <ul class="cb-slideshow">
+            <li><span>Image 01</span></li>
+            <li><span>Image 02</span></li>
+            <li><span>Image 03</span></li>
+            <li><span>Image 04</span></li>
+            <li><span>Image 05</span></li>
+            <li><span>Image 06</span></li>
+        </ul>
 			<form method="post" action="inscription.php" >
   				<h1>Inscrivez vous pour participer</h1>
   				<div class="inset">
@@ -42,10 +51,6 @@
   					
   				</div> 
 			</form>
-
-			<div>
-				<h2>Un Gagnant par Semaine</h2>
-			</div>
 		</div>
 	</body>
 </html>							
