@@ -29,5 +29,17 @@ projectEngineTestCase.prototype.test_jouer_pion = function () {
     assertEquals(e.get_pile(2).getCouleurDernierPion(), 1);
 
 };
+projectEngineTestCase.prototype.test_verif_pile = function () {
+    var e  = new Engine(), convert = e.convert_position(2);;
+    e.init_plateau();
+    e.jouer(2);
+    e.jouer(2);
+    e.jouer(2);
+    e.jouer(2);
+    e.jouer(2);
+    e.jouer(2);
+    assertEquals(e.verifier_Pile(e.get_tableau()[convert.positionX][convert.positionY]), 1);
+
+};
 
 

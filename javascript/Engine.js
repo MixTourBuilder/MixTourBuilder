@@ -17,7 +17,7 @@ var Engine = function () {
             }
         }
     };
-
+    // retourne la pile en fonction d'un position donnée en parametre
     this.get_pile = function (position) {
         var coup = this.convert_position(position);
         return plateau[coup.positionX][coup.positionY];
@@ -27,7 +27,7 @@ var Engine = function () {
     this.get_nb_pions_plateau = function () {
         return nb_pions_total;
     };
-
+    // retourn le tableau
     this.get_tableau = function () {
         return plateau;
     };
@@ -58,11 +58,11 @@ var Engine = function () {
     this.switch_joueur = function () {
         joueur_courant = (joueur_courant % 2) + 1;
     };
-
+    //
     this.convert_position = function (position) {
         return { positionX: position % 5, positionY: parseInt(position / 5) };
     };
-
+    //
     this.jouer = function (position) {
         var coup = this.convert_position(position);
         plateau[coup.positionX][coup.positionY].ajouterPion(joueur_courant);
@@ -73,5 +73,16 @@ var Engine = function () {
             nb_pions_joueur2 = nb_pions_joueur2 - 1;
         }
         this.switch_joueur();
+    };
+    this.verifier_Pile = function (pile) {
+        //var i, j, nb, joueur1, joueur2;
+        if (pile.get_pile_total().length > 5) {
+            return pile.getCouleurDernierPion();
+        }
+        //return -1;
+
+
+
+
     };
 };

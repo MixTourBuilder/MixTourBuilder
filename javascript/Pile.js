@@ -50,12 +50,12 @@ var Pile = function () {
         pile[nbPion] = color;
         nbPion = nbPion + 1;
     };
-
+    // remouve un pion
     this.supprimerPion = function () {
         pile[nbPion - 1] = -1;
         nbPion = nbPion - 1;
     };
-
+    //remove une pile
     this.supprimerPile = function () {
         //var pile;
         for (pile = 0; pile < pile.length; pile = pile + 1) {
