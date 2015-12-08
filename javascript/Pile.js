@@ -15,7 +15,7 @@ var Pile = function () {
     }
 
     /* Nombre de pions. */
-    this.getNbPion = function () {
+    this.get_nb_pion = function () {
         return nbPion;
     };
 

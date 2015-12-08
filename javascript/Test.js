@@ -29,3 +29,26 @@ projectEngineTestCase.prototype.test_jouer_pion = function () {
 };
 
 
+
+projectEngineTestCase.prototype.test_jouer_colonne = function () {
+    var e  = new Engine();
+    e.init_plateau();
+    e.jouer(2);
+    e.jouer(3);
+    e.move(3, 2, 1);
+    assertEquals(e.get_pile(2).getCouleurDernierPion(), 2);
+    assertEquals(e.get_pile(2).get_nb_pion(), 2);
+
+    e.jouer(11);
+    e.jouer(16);
+    e.move(16, 11, 1);
+    assertEquals(e.get_pile(11).getCouleurDernierPion(), 2);
+    assertEquals(e.get_pile(11).get_nb_pion(), 2);
+
+    e.jouer(11);
+    e.jouer(16);
+    e.move(18, 12, 1);
+    assertEquals(e.get_pile(12).getCouleurDernierPion(), 2);
+    assertEquals(e.get_pile(12).get_nb_pion(), 2);
+
+};

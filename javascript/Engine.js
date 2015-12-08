@@ -1,3 +1,9 @@
+function exception_jouer() {
+    this.name = "exception_jouer";
+    console.log("Exception, impossible de jouer ici.")
+}
+
+
 var Engine = function () {
 
     //Variables :
@@ -67,15 +73,28 @@ var Engine = function () {
         return { positionX: position % 5 , positionY: parseInt(position/5) };
     };
 
-    this.jouer = function (position) {
-        var coup = this.convert_position(position);
-        plateau[coup.positionX][coup.positionY].ajouterPion(joueur_courant);
-        nb_pions_total++;
+    this.decrementer_joueur = function() {
         if(joueur_courant == 1){
             nb_pions_joueur1--;
         } else {
             nb_pions_joueur2--;
         }
-        this.switch_joueur();
-    }
+    };
+
+    this.jouer = function (position) {
+        var coup = this.convert_position(position);
+        if(coup.positionX < 5 && coup.positionX >= 0 && coup.positionY < 5 && coup.positionY >= 0 &&
+            plateau[coup.positionX][coup.positionY].get_nb_pion() == 0){
+            plateau[coup.positionX][coup.positionY].ajouterPion(joueur_courant);
+            nb_pions_total++;
+            this.decrementer_joueur();
+            this.switch_joueur();
+
+        } else {
+            throw new exception_jouer();
+        }
+    };
+
+    
+
 };
