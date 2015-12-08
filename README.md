@@ -3,9 +3,9 @@ Promotion de l'entreprise Dieter Stein autour d'un événement sur le jeu MixTou
 
 ## Equipe de développement
 
-####**Chef de projet **: TRABELSI Nadir
-####**Responsable réunion, contact client **: PREVOT Clément
-####**Responable versioning **: TRABELSI Nadir
+####Chef de projet : TRABELSI Nadir
+####Responsable réunion, contact client : PREVOT Clément
+####Responable versioning : TRABELSI Nadir
 
 ####Développeurs : 
  - TRABELSI Nadir - teamBDD
