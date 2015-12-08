@@ -130,12 +130,12 @@ var Engine = function () {
         var coupA = this.convert_position(depart);
         var coupB = this.convert_position(destination);
         var taille= plateau[coupB.positionX][coupB.positionY].get_nb_pion();
-        if ( position == "horizontal" &&  (coupA.positionX - coupB.positionX) == taille ) {
+        if ( position == "horizontal" &&  (coupA.positionX - coupB.positionX) <= taille ) {
             return true;
-        } else if ( position == "vertical" &&  (coupA.positionY - coupB.positionY) == taille ) {
+        } else if ( position == "vertical" &&  (coupA.positionY - coupB.positionY) <= taille ) {
             return true;
         } else if (  ( position == "diagonal1" || position == "diagonal2") &&
-            (Math.abs(coupA.positionX - coupB.positionX) + Math.abs(coupA.positionY - coupB.positionY))/2 == taille) {
+            (Math.abs(coupA.positionX - coupB.positionX) + Math.abs(coupA.positionY - coupB.positionY))/2 <= taille) {
             return true;
         }
 
@@ -187,6 +187,7 @@ var Engine = function () {
     this.mouvement_valide = function(depart, destination, nombre){
         var position = this.verification_position(depart, destination);
         var coup = this.convert_position(depart);
+
         if ( position != 0 &&
             this.verification_distance(depart, destination, position) &&
             this.verification_premier(depart, destination, position) &&

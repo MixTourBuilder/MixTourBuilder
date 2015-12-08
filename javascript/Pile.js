@@ -48,10 +48,11 @@ var Pile = function () {
     /* Ajoute une pile à une pile*/
     this.ajouterPile = function (pile_depart, nombre) {
         var i;
-        for (i = 0; i < pile_depart.get_nb_pion(); i++){
-            pile[nbPion + i] = pile_depart.getPion(i);
+        var taille = pile_depart.get_nb_pion() - nombre;
+        for (i = 0; i < nombre; i++){
+            pile[nbPion + i] = pile_depart.getPion(taille + i);
         }
-        nbPion = nbPion + pile_depart.get_nb_pion();
+        nbPion = nbPion + nombre;
     };
 
     this.supprimerPion = function () {

@@ -55,3 +55,32 @@ projectEngineTestCase.prototype.test_jouer_colonne = function () {
     assertEquals(e.get_pile(18).get_nb_pion(), 0);
 
 };
+
+
+
+projectEngineTestCase.prototype.test_jouer_colonne2 = function () {
+    var e  = new Engine();
+    e.init_plateau();
+    e.jouer(2);
+    e.jouer(3);
+    e.deplacer(3, 2, 1);
+    assertEquals(e.get_pile(2).getCouleurDernierPion(), 2);
+    assertEquals(e.get_pile(2).get_nb_pion(), 2);
+    assertEquals(e.get_pile(3).get_nb_pion(), 0);
+    e.jouer(3);
+    e.deplacer(3, 2, 1);
+    assertEquals(e.get_pile(2).getCouleurDernierPion(), 1);
+    assertEquals(e.get_pile(2).get_nb_pion(), 3);
+    assertEquals(e.get_pile(3).get_nb_pion(), 0);
+    e.jouer(3);
+    e.deplacer(3, 2, 1);
+    assertEquals(e.get_pile(2).getCouleurDernierPion(), 2);
+    assertEquals(e.get_pile(2).get_nb_pion(), 4);
+    assertEquals(e.get_pile(3).get_nb_pion(), 0);
+    e.jouer(3);
+    e.deplacer(2, 3, 3);
+    assertEquals(e.get_pile(3).getCouleurDernierPion(), 2);
+    assertEquals(e.get_pile(3).get_nb_pion(), 4);
+    assertEquals(e.get_pile(2).get_nb_pion(), 1);
+
+};
