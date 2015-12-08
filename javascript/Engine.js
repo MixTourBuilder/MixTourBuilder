@@ -59,7 +59,7 @@ var Engine = function () {
         joueur_courant = (joueur_courant % 2) + 1;
     };
 
-    this.convert_position = function(position){
+    this.convert_position = function (position) {
         return { positionX: position % 5, positionY: parseInt(position / 5) };
     };
 
@@ -67,7 +67,7 @@ var Engine = function () {
         var coup = this.convert_position(position);
         plateau[coup.positionX][coup.positionY].ajouterPion(joueur_courant);
         nb_pions_total = nb_pions_total + 1;
-        if(joueur_courant === 1) {
+        if (joueur_courant === 1) {
             nb_pions_joueur1 = nb_pions_joueur1 - 1;
         } else {
             nb_pions_joueur2 = nb_pions_joueur2 - 1;
