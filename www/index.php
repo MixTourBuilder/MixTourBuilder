@@ -35,13 +35,25 @@
     					<input type="text" name="nom" id="nom" maxlength="40" placeholder="Nom"  required/>
   					</p>
   					<p>
-    					<label for="nom">Prenom : </label>
+    					<label for="prenom">Prenom : </label>
     					<input type="text" name="prenom" id="prenom" maxlength="40" placeholder="Prenom"  required/>
   					</p>
+            <p>
+              <label for="age">Date de Naissance : </label>
+              <input type="date" name="age" id="age" maxlength="40" required/>
+            </p>
+            <p>
+              <label for="pseudo">Pseudo : </label>
+              <input type="text" name="pseudo" id="pseudo" maxlength="40" placeholder="Pseudo"  required/>
+            </p>
   					<p>
-    					<label for="nom">Email : </label>
+    					<label for="mail">Email : </label>
     					<input type="mail" name="mail" id="mail" maxlength="40" placeholder="E-mail"  required/>
   					</p>
+            <p>
+              <label for="password">Password : </label>
+              <input type="password" name="password" id="password" maxlength="40" placeholder="Mot de Passe"  required/>
+            </p>
   					<p>
   						<input type="checkbox" name="rules" required/>&nbsp;<a href="reglement.html"> J'accepte le réglement </a>
   					</p>
