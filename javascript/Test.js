@@ -1,12 +1,14 @@
 var projectEngineTestCase = TestCase("projectEngineTestCase");
 
 projectEngineTestCase.prototype.testInitPlateau = function () {
+    "use strict";
     var e = new Engine();
     e.init_plateau();
     assertEquals(e.get_nb_pions_plateau(), 0);
 };
 
 projectEngineTestCase.prototype.testInitJoueur = function () {
+    "use strict";
     var e = new Engine();
     e.init_plateau();
     assertEquals(e.get_nb_pions_joueur(1), 25);
