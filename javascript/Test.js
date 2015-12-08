@@ -18,9 +18,9 @@ projectEngineTestCase.prototype.testInitJoueur = function () {
     assertEquals(e.get_joueur_courant(), 2);
 };
 
-projectEngineTestCase.prototype.test_jouer_pion = function(){
+projectEngineTestCase.prototype.test_jouer_pion = function () {
     var e  = new Engine();
-    e.init_plateau()
+    e.init_plateau();
     e.jouer(2);
     assertEquals(e.get_nb_pions_joueur(1), 24);
     assertEquals(e.get_joueur_courant(), 2);
