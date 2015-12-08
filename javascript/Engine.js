@@ -24,9 +24,18 @@ var Engine = function () {
         }
     };
 
+    this.get_pile = function (position){
+        var coup = this.convert_position(position);
+        return plateau[coup.positionX][coup.positionY];
+    };
+
     // Le nombre de pion total
-    this.get_nb_piece_plateau = function () {
+    this.get_nb_pions_plateau = function () {
         return nb_pions_total;
+    };
+
+    this.get_tableau = function(){
+        return plateau;
     };
 
 
@@ -54,4 +63,19 @@ var Engine = function () {
         joueur_courant = (joueur_courant % 2) + 1;
     };
 
+    this.convert_position = function(position){
+        return { positionX: position % 5 , positionY: parseInt(position/5) };
+    };
+
+    this.jouer = function (position) {
+        var coup = this.convert_position(position);
+        plateau[coup.positionX][coup.positionY].ajouterPion(joueur_courant);
+        nb_pions_total++;
+        if(joueur_courant == 1){
+            nb_pions_joueur1--;
+        } else {
+            nb_pions_joueur2--;
+        }
+        this.switch_joueur();
+    }
 };

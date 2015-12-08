@@ -8,9 +8,9 @@ var Pile = function () {
 
 
     "use strict";
-    var pile = new Array(5), nbPion = 0, ligne; // Nombre des pions.& Liste des pions
+    var pile = new Array(10), nbPion = 0, ligne; // Nombre des pions.& Liste des pions
 
-    for (ligne = 0; ligne < 5; ligne = ligne + 1) {
+    for (ligne = 0; ligne < 10; ligne = ligne + 1) {
         pile[ligne] = -1; // On initialise la pile
     }
 
@@ -22,6 +22,11 @@ var Pile = function () {
     /* Pion d'indice "indice" */
     this.getPion = function (indice) {
         return pile[indice];
+    };
+
+    /* Retourne le tableau de la pile.*/
+    this.get_pile_total = function () {
+        return pile;
     };
 
     /* La couleur du dernier pion */
