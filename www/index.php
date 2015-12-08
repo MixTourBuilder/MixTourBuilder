@@ -11,45 +11,43 @@
 	</head>
 	<body>
 		<header>
-			
-		</header>
-          <ul class="cb-slideshow">
-            <li><span>Image 01</span></li>
-            <li><span>Image 02</span></li>
-            <li><span>Image 03</span></li>
-            <li><span>Image 04</span></li>
-            <li><span>Image 05</span></li>
-            <li><span>Image 06</span></li>
-        </ul>
-			<form method="post" action="inscription.php" >
-  				<h1>Inscrivez vous pour participer</h1>
-  				<div class="inset">
-  					<p>
-  						<label for="civilite">Civilité :</label>
-      					<input type="radio" name="civilite" value="M." />M.
-      					<input type="radio" name="civilite" value="Mlle" />Mlle
-						<input type="radio" name="civilite" value="Mme" />Mme
+      <ul class="cb-slideshow">
+        <li><span>Image 01</span></li>
+        <li><span>Image 02</span></li>
+        <li><span>Image 03</span></li>
+        <li><span>Image 04</span></li>
+        <li><span>Image 05</span></li>
+        <li><span>Image 06</span></li>
+      </ul>
+    </header>
+    <div id="main">
+		  <form method="post" action="inscription.php" >
+  			<h1>Inscrivez vous pour participer</h1>
+  			  <div class="inset">
+  				  <p>
+  					  <label for="civilite">Civilité : </label>
+      			 	<input type="radio" name="civilite" value="M." />M.
+      				<input type="radio" name="civilite" value="Mlle" />Mlle.
+						  <input type="radio" name="civilite" value="Mme" />Mme.
     				</p>
   					<p>
-    					<label for="nom">Nom :</label>
+    					<label for="nom">Nom : </label>
     					<input type="text" name="nom" id="nom" maxlength="40" placeholder="Nom"  required/>
   					</p>
   					<p>
-    					<label for="nom">Prenom :</label>
+    					<label for="nom">Prenom : </label>
     					<input type="text" name="prenom" id="prenom" maxlength="40" placeholder="Prenom"  required/>
   					</p>
   					<p>
-    					<label for="nom">Email :</label>
+    					<label for="nom">Email : </label>
     					<input type="mail" name="mail" id="mail" maxlength="40" placeholder="E-mail"  required/>
   					</p>
   					<p>
-  						<input type="checkbox" name="rules" />J'accepte le réglement
+  						<input type="checkbox" name="rules" required/>&nbsp;<a href="reglement.html"> J'accepte le réglement </a>
   					</p>
-  					<p class="paragraphe">
-    					<input type="submit" name="play" id="sign-in" value="> Je Joue"/>
+  					<p class="btn">
+    					<input type="submit" name="play" id="sign-in" value="> Je Joue" />
   					</p>
-  					
-  				</div> 
 			</form>
 		</div>
 	</body>

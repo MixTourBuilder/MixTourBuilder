@@ -1,4 +1,4 @@
-/ {
+body {
 	color:white;
 	font-size:12px;
 	background-color:black;
@@ -14,7 +14,7 @@ header img{
   position :absolute;
 }
 footer{
-   background-attachment:fixed;
+  background-attachment:fixed;
   background-repeat:no-repeat;
   background-size: cover; 
   position :absolute;
@@ -22,10 +22,11 @@ footer{
   margin-left: 50px;
   font-size: 40px;
 }
-form {
+
+#main form {
   background:#FFF; 
   width:300px;
-  margin:20px 40px;
+  margin:70px 40px;
   border:1px solid #191919;
   float :right;
   overflow:hidden;
@@ -39,12 +40,6 @@ form {
   border-top:1px solid #19191a;
 }
 
-.gift{
-	margin-left:20px;
-	margin-top:30px;
-  background-attachment:fixed;
-  
-}
 
 form h1 {
   font-size:20px;
@@ -64,7 +59,7 @@ label {
 }
 
 input[type=text], 
-input[type=email]{
+input[type=mail]{
  	width:100%;
   padding:8px 5px;
   border:1px solid #222;
@@ -82,13 +77,17 @@ input[type=radio]{
   box-shadow: 0 1px 0 rgba(255,255,255,0.1);
   background:#FFF; 
   opacity: 0.7;
+  margin-bottom:20px;
 }
 
-.paragraphe {
+.btn{
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 30px;
  	padding:0 20px 20px 20px; 
 }
 
-.paragraphe:after {
+.btn{
  	clear:both;
   display:table;
   content:"";
@@ -97,6 +96,7 @@ input[type=radio]{
 
 
 input[type=submit] {
+  text-align: center;
   background: #3498db;
   background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
   background-image: -moz-linear-gradient(top, #3498db, #2980b9);
@@ -108,9 +108,11 @@ input[type=submit] {
   font-size: 20px;
   padding: 10px 20px 10px 20px;
   text-decoration: none;
+  margin-bottom:20px;
 }
 
 input[type=submit]:hover {
+  text-align: center;
   background: #3cb0fd;
   background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
   background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
