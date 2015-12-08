@@ -18,22 +18,22 @@ var Engine = function () {
         }
     };
 
-    this.get_pile = function (position){
+    this.get_pile = function (position) {
         var coup = this.convert_position(position);
         return plateau[coup.positionX][coup.positionY];
     };
 
-    // Le nombre de pion total
+    // Return le nombre de pion total
     this.get_nb_pions_plateau = function () {
         return nb_pions_total;
     };
 
-    this.get_tableau = function(){
+    this.get_tableau = function () {
         return plateau;
     };
 
 
-    // Le nombre de pion du joueur "joueur"
+    // Return le nombre de pion du joueur "joueur"
     this.get_nb_pions_joueur = function (joueur) {
         if (joueur === 1) {
             return nb_pions_joueur1;
@@ -41,7 +41,7 @@ var Engine = function () {
         return nb_pions_joueur2;
     };
 
-    // Le score du joueur
+    // Return le score du joueur
     this.get_score_joueur = function (joueur) {
         if (joueur === 1) {
             return score_joueur1;
@@ -49,7 +49,7 @@ var Engine = function () {
         return score_joueur2;
     };
 
-    // Le joueur courant
+    // Return le joueur courant
     this.get_joueur_courant = function () {
         return joueur_courant;
     };
@@ -59,19 +59,19 @@ var Engine = function () {
         joueur_courant = (joueur_courant % 2) + 1;
     };
 
-    this.convert_position = function(position){
-        return { positionX: position % 5 , positionY: parseInt(position/5) };
+    this.convert_position = function (position) {
+        return { positionX: position % 5, positionY: parseInt(position / 5) };
     };
 
     this.jouer = function (position) {
         var coup = this.convert_position(position);
         plateau[coup.positionX][coup.positionY].ajouterPion(joueur_courant);
         nb_pions_total++;
-        if(joueur_courant == 1){
+        if (joueur_courant == 1) {
             nb_pions_joueur1--;
         } else {
             nb_pions_joueur2--;
         }
         this.switch_joueur();
-    }
+    };
 };
