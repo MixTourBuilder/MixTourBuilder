@@ -15,7 +15,7 @@ var Pile = function () {
     }
 
     /* Nombre de pions. */
-    this.getNbPion = function () {
+    this.get_nb_pion = function () {
         return nbPion;
     };
 
@@ -45,10 +45,13 @@ var Pile = function () {
 
     };
 
-    /* Ajoute un pion à une pile*/
-    this.ajouterPile = function (color) {
-        pile[nbPion] = color;
-        nbPion = nbPion + 1;
+    /* Ajoute une pile à une pile*/
+    this.ajouterPile = function (pile_depart, nombre) {
+        var i;
+        for (i = 0; i < pile_depart.get_nb_pion(); i++){
+            pile[nbPion + i] = pile_depart.getPion(i);
+        }
+        nbPion = nbPion + pile_depart.get_nb_pion();
     };
 
     this.supprimerPion = function () {
@@ -56,12 +59,12 @@ var Pile = function () {
         nbPion = nbPion - 1;
     };
 
-    this.supprimerPile = function () {
-        //var pile;
-        for (pile = 0; pile < pile.length; pile = pile + 1) {
-            pile[pile] = -1;
+    this.supprimerPile = function (nombre) {
+        var i;
+        for (i = this.get_nb_pion() - 1; i >= 0; i--) {
+            pile[i] = -1;
         }
-        nbPion = 0;
+        nbPion = this.get_nb_pion() - nombre;
     };
 
 };
