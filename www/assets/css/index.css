@@ -35,6 +35,18 @@ footer{
   color : #514399;
 }
 
+#login form {
+  background:#FFF; 
+  width:300px;
+  margin:270px 40px;
+  border:1px solid #191919;
+  float :left;
+  overflow:hidden;
+  position:relative;
+  opacity: 0.7;
+  color : #514399;
+}
+
 .inset {
  	padding:20px; 
   border-top:1px solid #19191a;

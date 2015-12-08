@@ -21,7 +21,7 @@
       </ul>
     </header>
     <div id="main">
-		  <form method="post" action="inscription.php" >
+		  <form class="signin" method="post" action="inscription.php" >
   			<h1>Inscrivez vous pour participer</h1>
   			  <div class="inset">
   				  <p>
@@ -58,7 +58,24 @@
   						<input type="checkbox" name="rules" required/>&nbsp;<a href="reglement.html"> J'accepte le réglement </a>
   					</p>
   					<p class="btn">
-    					<input type="submit" name="play" id="sign-in" value="> Je Joue" />
+    					<input type="submit" name="play" id="sign-in" value="> Inscriptions" />
+  					</p>
+			</form>
+		</div>
+		<div id="login">
+			<form class="login" method="post" action="inscription.php" >
+  			<h1>Connectez vous pour jouer</h1>
+  			  <div class="inset">
+            <p>
+              <label for="pseudo">Pseudo : </label>
+              <input type="text" name="pseudolog" id="pseudolog" maxlength="40" placeholder="Pseudo"  required/>
+            </p>
+            <p>
+              <label for="password">Password : </label>
+              <input type="password" name="passwordlog" id="passwordlog" maxlength="40" placeholder="Mot de Passe"  required/>
+            </p>
+  					<p class="btn">
+    					<input type="submit" name="login" id="log-in" value="> Connexion" />
   					</p>
 			</form>
 		</div>
