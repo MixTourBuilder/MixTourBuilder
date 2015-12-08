@@ -42,4 +42,18 @@ projectEngineTestCase.prototype.test_verif_pile = function () {
 
 };
 
+projectEngineTestCase.prototype.test_verif_gagner = function () {
+    var e  = new Engine(), convert = e.convert_position(2);
+    e.init_plateau();
+    e.jouer(1);e.jouer(1);e.jouer(1);e.jouer(1);e.jouer(1);e.jouer(1);
+    e.jouer(2);e.jouer(2);e.jouer(2);e.jouer(2);e.jouer(2);e.jouer(2);
+    e.jouer(3);e.jouer(3);e.jouer(3);e.jouer(3);e.jouer(3);e.jouer(3);
+    e.jouer(4);e.jouer(4);e.jouer(4);e.jouer(4);e.jouer(4);e.jouer(4);
+    e.jouer(5);e.jouer(5);e.jouer(5);e.jouer(5);e.jouer(5);e.jouer(5);
+    e.jouer(6);e.jouer(6);e.jouer(6);e.jouer(6);e.jouer(6);e.jouer(6);
+
+    assertEquals(e.verifier_Gagner(), 0);
+
+};
+
 

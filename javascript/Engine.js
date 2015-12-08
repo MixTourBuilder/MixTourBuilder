@@ -79,10 +79,36 @@ var Engine = function () {
         if (pile.get_pile_total().length > 5) {
             return pile.getCouleurDernierPion();
         }
+        else { return 0}
         //return -1;
-
-
-
-
     };
+    this.verifier_Gagner = function(){
+        var i, j, joueur1 = 0, joueur2 = 0, verifier;
+        for (i = 0; i < plateau.length; i = i + 1) {
+            for (j = 0; j < plateau.length; j = j + 1) {
+                verifier = this.verifier_Pile(plateau[i][j]);
+                if( verifier != 0) {
+                    if (verifier == 1) {
+
+                        joueur1++;
+                    }
+                    else if (verifier == 2) {
+
+                        joueur2++;
+                    }
+
+                }
+            }
+        }
+        if(joueur1 > 5){
+            return 1;
+        }else if(joueur2 > 5){
+
+            return 2;
+        }else{
+            return 0;
+        }
+
+
+    }
 };
