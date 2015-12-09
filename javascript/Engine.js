@@ -1,21 +1,22 @@
 function Exception_jouer() {
+    'use strict';
     this.name = "exception_jouer";
 }
 
 function Exception_deplacer() {
+    'use strict';
     this.name = "exception_deplacer";
 }
 
 
 var Engine = function () {
-
+    'use strict';
     //Variables :
     var plateau = new Array(5), ligne, nb_pions_total = 0, nb_pions_joueur1 = 25,
         nb_pions_joueur2 = 25, score_joueur1 = 0, score_joueur2 = 0, joueur_courant = 1;
     for (ligne = 0; ligne < 5; ligne++) {
         plateau[ligne] = new Array(5);
     }
-
 
 
     // Initialise le plateau
@@ -34,7 +35,7 @@ var Engine = function () {
         return plateau[coup.positionX][coup.positionY];
     };
 
-    // Le nombre de pion total
+    // Retourne le nombre de pion total
     this.get_nb_pions_plateau = function () {
         return nb_pions_total;
     };
@@ -53,7 +54,7 @@ var Engine = function () {
         return nb_pions_joueur2;
     };
 
-    // Le score du joueur
+    // Retourne le score du joueur
     this.get_score_joueur = function (joueur) {
         if (joueur === 1) {
             return score_joueur1;
@@ -61,7 +62,7 @@ var Engine = function () {
         return score_joueur2;
     };
 
-    // Le joueur courant
+    // Retourne le joueur courant
     this.get_joueur_courant = function () {
         return joueur_courant;
     };
@@ -85,7 +86,7 @@ var Engine = function () {
 
     this.coup_possible = function (coup) {
         return (coup.positionX < 5 && coup.positionX >= 0 &&
-            coup.positionY < 5 && coup.positionY >= 0);
+        coup.positionY < 5 && coup.positionY >= 0);
     };
 
     // Jouer un coup quand la case est vide
@@ -98,8 +99,7 @@ var Engine = function () {
         }
 
         if (this.coup_possible(coup) &&
-                plateau[coup.positionX][coup.positionY].get_nb_pion() === 0 &&
-                value !== 0) {
+            plateau[coup.positionX][coup.positionY].get_nb_pion() === 0 && value !== 0) {
             plateau[coup.positionX][coup.positionY].ajouter_pion(joueur_courant);
             nb_pions_total++;
             this.decrementer_joueur();
@@ -121,7 +121,7 @@ var Engine = function () {
             return "vertical";
         }
         if (Math.abs(coupA.positionX - coupB.positionX) ===
-                Math.abs(coupA.positionY - coupB.positionY)) {
+            Math.abs(coupA.positionY - coupB.positionY)) {
             return "diagonal1";
         }
         if ((coupA.positionX + coupA.positionY) === (coupB.positionX + coupB.positionY)) {
@@ -142,8 +142,8 @@ var Engine = function () {
             return true;
         }
         return ((position === "diagonal1" || position === "diagonal2") &&
-                (Math.abs(coupA.positionX - coupB.positionX) +
-                Math.abs(coupA.positionY - coupB.positionY)) / 2 <= taille);
+        (Math.abs(coupA.positionX - coupB.positionX) +
+        Math.abs(coupA.positionY - coupB.positionY)) / 2 <= taille);
     };
 
     this.verif_parcours = function (depart, arrivee, tmp_posX, tmp_posY) {
@@ -152,7 +152,7 @@ var Engine = function () {
             tmp_coup.positionX += tmp_posX;
             tmp_coup.positionY += tmp_posY;
             if (tmp_coup.positionX === tmp_arret.positionX &&
-                    tmp_coup.positionY === tmp_arret.positionY) {
+                tmp_coup.positionY === tmp_arret.positionY) {
                 return true;
             }
         }
@@ -184,8 +184,8 @@ var Engine = function () {
             coup = this.convert_position(depart);
 
         return (position !== 0 && this.verification_distance(depart, destination, position) &&
-            this.verification_premier(depart, destination, position) &&
-            plateau[coup.positionX][coup.positionY].get_nb_pion() >= nombre);
+        this.verification_premier(depart, destination, position) &&
+        plateau[coup.positionX][coup.positionY].get_nb_pion() >= nombre);
     };
 
     // On déplace une pile sur une autre 
@@ -193,7 +193,7 @@ var Engine = function () {
         var coupA = this.convert_position(depart), coupB = this.convert_position(destination);
         if (this.mouvement_valide(depart, destination, nombre)) {
             plateau[coupB.positionX][coupB.positionY].
-                ajouter_pile(plateau[coupA.positionX][coupA.positionY], nombre);
+            ajouter_pile(plateau[coupA.positionX][coupA.positionY], nombre);
             plateau[coupA.positionX][coupA.positionY].supprimer_pile(nombre);
             this.verif_score(plateau[coupB.positionX][coupB.positionY]);
         } else {

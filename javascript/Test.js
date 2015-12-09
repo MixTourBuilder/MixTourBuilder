@@ -1,12 +1,14 @@
 var projectEngineTestCase = TestCase("projectEngineTestCase");
 
 projectEngineTestCase.prototype.testInitPlateau = function () {
+    'use strict';
     var e = new Engine();
     e.init_plateau();
     assertEquals(e.get_nb_pions_plateau(), 0);
 };
 
 projectEngineTestCase.prototype.testInitJoueur = function () {
+    'use strict';
     var e = new Engine();
     e.init_plateau();
     assertEquals(e.get_nb_pions_joueur(1), 25);
@@ -19,6 +21,7 @@ projectEngineTestCase.prototype.testInitJoueur = function () {
 };
 
 projectEngineTestCase.prototype.test_jouer_pion = function () {
+    'use strict';
     var e  = new Engine();
     e.init_plateau();
     e.jouer(2);
@@ -31,6 +34,7 @@ projectEngineTestCase.prototype.test_jouer_pion = function () {
 
 
 projectEngineTestCase.prototype.test_jouer_colonne = function () {
+    'use strict';
     var e  = new Engine();
     e.init_plateau();
     e.jouer(2);
@@ -59,6 +63,7 @@ projectEngineTestCase.prototype.test_jouer_colonne = function () {
 
 
 projectEngineTestCase.prototype.test_jouer_colonne2 = function () {
+    'use strict';
     var e  = new Engine();
     e.init_plateau();
     e.jouer(2);
@@ -86,6 +91,7 @@ projectEngineTestCase.prototype.test_jouer_colonne2 = function () {
 };
 
 projectEngineTestCase.prototype.test_verif_pile = function () {
+    'use strict';
     var e  = new Engine(), convert = e.convert_position(2);
     e.init_plateau();
     e.jouer(2);//1
@@ -102,6 +108,7 @@ projectEngineTestCase.prototype.test_verif_pile = function () {
 };
 
 projectEngineTestCase.prototype.test_verif_gagner = function () {
+    'use strict';
     var e  = new Engine(), convert = e.convert_position(2);
     e.init_plateau();
     e.jouer(2);//1

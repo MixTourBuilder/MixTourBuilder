@@ -1,4 +1,3 @@
-
 /***
  *  Created by MixTourBuilder.
  * ***/
@@ -42,14 +41,12 @@ var Pile = function () {
             return true;
         }
         return false;
-
     };
 
     /* Ajoute une pile à une pile*/
     this.ajouter_pile = function (pile_depart, nombre) {
-        var i;
-        var taille = pile_depart.get_nb_pion() - nombre;
-        for (i = 0; i < nombre; i++){
+        var i, taille = pile_depart.get_nb_pion() - nombre;
+        for (i = 0; i < nombre; i++) {
             pile[nb_pion + i] = pile_depart.get_pion(taille + i);
         }
         nb_pion = nb_pion + nombre;
