@@ -1,33 +1,46 @@
-var Engine = function () {
+function Exception_jouer() {
+    'use strict';
+    this.name = "exception_jouer";
+}
 
+function Exception_deplacer() {
+    'use strict';
+    this.name = "exception_deplacer";
+}
+
+
+var Engine = function () {
+    'use strict';
     //Variables :
-    "use strict";
-    var plateau = new Array(5), ligne, nb_pions_total = 0,
-        nb_pions_joueur1 = 25, nb_pions_joueur2 = 25,
-        score_joueur1 = 0, score_joueur2 = 0, joueur_courant = 1;
-    for (ligne = 0; ligne < 5; ligne = ligne + 1) {
+    var plateau = new Array(5), ligne, nb_pions_total = 0, nb_pions_joueur1 = 25,
+        nb_pions_joueur2 = 25, score_joueur1 = 0, score_joueur2 = 0, joueur_courant = 1;
+    for (ligne = 0; ligne < 5; ligne++) {
         plateau[ligne] = new Array(5);
     }
+
+
     // Initialise le plateau
     this.init_plateau = function () {
         var i, j;
-        for (i = 0; i < plateau.length; i = i + 1) {
-            for (j = 0; j < plateau.length; j = j + 1) {
+        for (i = 0; i < plateau.length; i++) {
+            for (j = 0; j < plateau.length; j++) {
                 plateau[i][j] = new Pile();
             }
         }
     };
-    // retourne la pile en fonction d'un position donnée en parametre
+
+    // Retourne une pile
     this.get_pile = function (position) {
         var coup = this.convert_position(position);
         return plateau[coup.positionX][coup.positionY];
     };
 
-    // Le nombre de pion total
+    // Retourne le nombre de pion total
     this.get_nb_pions_plateau = function () {
         return nb_pions_total;
     };
-    // retourn le tableau
+
+    // Retourne le tableau 2D
     this.get_tableau = function () {
         return plateau;
     };
@@ -41,7 +54,7 @@ var Engine = function () {
         return nb_pions_joueur2;
     };
 
-    // Le score du joueur
+    // Retourne le score du joueur
     this.get_score_joueur = function (joueur) {
         if (joueur === 1) {
             return score_joueur1;
@@ -49,7 +62,7 @@ var Engine = function () {
         return score_joueur2;
     };
 
-    // Le joueur courant
+    // Retourne le joueur courant
     this.get_joueur_courant = function () {
         return joueur_courant;
     };
@@ -58,57 +71,166 @@ var Engine = function () {
     this.switch_joueur = function () {
         joueur_courant = (joueur_courant % 2) + 1;
     };
-    //
+
     this.convert_position = function (position) {
-        return { positionX: position % 5, positionY: parseInt(position / 5) };
+        return {positionX: position % 5, positionY: parseInt(position / 5, 10)};
     };
-    //
-    this.jouer = function (position) {
-        var coup = this.convert_position(position);
-        plateau[coup.positionX][coup.positionY].ajouterPion(joueur_courant);
-        nb_pions_total = nb_pions_total + 1;
+
+    this.decrementer_joueur = function () {
         if (joueur_courant === 1) {
-            nb_pions_joueur1 = nb_pions_joueur1 - 1;
+            nb_pions_joueur1--;
         } else {
-            nb_pions_joueur2 = nb_pions_joueur2 - 1;
+            nb_pions_joueur2--;
         }
-        this.switch_joueur();
     };
-    this.verifier_Pile = function (pile) {
-        //var i, j, nb, joueur1, joueur2;
-        if (pile.get_pile_total().length > 5) {
-            return pile.getCouleurDernierPion();
+
+    this.coup_possible = function (coup) {
+        return (coup.positionX < 5 && coup.positionX >= 0 &&
+        coup.positionY < 5 && coup.positionY >= 0);
+    };
+
+    // Jouer un coup quand la case est vide
+    this.jouer = function (position) {
+        var coup = this.convert_position(position), value;
+        if (joueur_courant === 1) {
+            value = nb_pions_joueur1;
+        } else {
+            value = nb_pions_joueur2;
         }
-        else { return 0}
-        //return -1;
+
+        if (this.coup_possible(coup) &&
+            plateau[coup.positionX][coup.positionY].get_nb_pion() === 0 && value !== 0) {
+            plateau[coup.positionX][coup.positionY].ajouter_pion(joueur_courant);
+            nb_pions_total++;
+            this.decrementer_joueur();
+            this.switch_joueur();
+
+        } else {
+            throw new Exception_jouer();
+        }
     };
-    this.verifier_Gagner = function(){
-        var i, j, joueur1 = 0, joueur2 = 0, verifier;
-        for (i = 0; i < plateau.length; i = i + 1) {
-            for (j = 0; j < plateau.length; j = j + 1) {
-                verifier = this.verifier_Pile(plateau[i][j]);
-                if( verifier != 0) {
-                    if (verifier == 1) {
 
-                        joueur1++;
-                    }
-                    else if (verifier == 2) {
+    //Verification si le pion depart peut se déplacer sur destination.
+    this.verification_position = function (depart, destination) {
+        var coupA = this.convert_position(depart), coupB = this.convert_position(destination);
 
-                        joueur2++;
-                    }
+        if (coupA.positionY === coupB.positionY) { // Horizontal
+            return "horizontal";
+        }
+        if (coupA.positionX === coupB.positionX) { // Vertical
+            return "vertical";
+        }
+        if (Math.abs(coupA.positionX - coupB.positionX) ===
+            Math.abs(coupA.positionY - coupB.positionY)) {
+            return "diagonal1";
+        }
+        if ((coupA.positionX + coupA.positionY) === (coupB.positionX + coupB.positionY)) {
+            return "diagonal2";
+        }
 
-                }
+        return 0;
+    };
+
+    // On vérifie que les pions sont à bonne distance.
+    this.verification_distance = function (depart, destination, position) {
+        var coupA = this.convert_position(depart), coupB = this.convert_position(destination),
+            taille = plateau[coupB.positionX][coupB.positionY].get_nb_pion();
+        if (position === "horizontal" && (coupA.positionX - coupB.positionX) <= taille) {
+            return true;
+        }
+        if (position === "vertical" && (coupA.positionY - coupB.positionY) <= taille) {
+            return true;
+        }
+        return ((position === "diagonal1" || position === "diagonal2") &&
+        (Math.abs(coupA.positionX - coupB.positionX) +
+        Math.abs(coupA.positionY - coupB.positionY)) / 2 <= taille);
+    };
+
+    this.verif_parcours = function (depart, arrivee, tmp_posX, tmp_posY) {
+        var tmp_coup = depart, tmp_arret = arrivee;
+        while (this.coup_possible(tmp_coup)) {
+            tmp_coup.positionX += tmp_posX;
+            tmp_coup.positionY += tmp_posY;
+            if (tmp_coup.positionX === tmp_arret.positionX &&
+                tmp_coup.positionY === tmp_arret.positionY) {
+                return true;
             }
         }
-        if(joueur1 > 5){
-            return 1;
-        }else if(joueur2 > 5){
+        return false;
+    };
 
-            return 2;
-        }else{
-            return 0;
+    // On vérifie que destination est bien la premiere pile rencontrée .
+    this.verification_premier = function (depart, destination, position) {
+        var coupA = this.convert_position(depart), coupB = this.convert_position(destination),
+            tmp_posX = 1, tmp_posY = 0;
+        if (position === "vertical") {
+            tmp_posX = 0;
+            tmp_posY = 1;
+        } else if (position === "diagonal1") {
+            tmp_posX = 1;
+            tmp_posY = 1;
+        } else if (position === "diagonal1") {
+            tmp_posX = 1;
+            tmp_posY = -1;
+        }
+        return this.verif_parcours(coupA, coupB, tmp_posX, tmp_posY) ||
+            this.verif_parcours(coupB, coupA, tmp_posX, tmp_posY);
+
+    };
+
+    // On fait toutes les vérifications pour être sur que le mouvement de pile est autorisé
+    this.mouvement_valide = function (depart, destination, nombre) {
+        var position = this.verification_position(depart, destination),
+            coup = this.convert_position(depart);
+
+        return (position !== 0 && this.verification_distance(depart, destination, position) &&
+        this.verification_premier(depart, destination, position) &&
+        plateau[coup.positionX][coup.positionY].get_nb_pion() >= nombre);
+    };
+
+    // On déplace une pile sur une autre 
+    this.deplacer = function (depart, destination, nombre) {
+        var coupA = this.convert_position(depart), coupB = this.convert_position(destination);
+        if (this.mouvement_valide(depart, destination, nombre)) {
+            plateau[coupB.positionX][coupB.positionY].
+            ajouter_pile(plateau[coupA.positionX][coupA.positionY], nombre);
+            plateau[coupA.positionX][coupA.positionY].supprimer_pile(nombre);
+            this.verif_score(plateau[coupB.positionX][coupB.positionY]);
+        } else {
+            throw new Exception_deplacer();
         }
 
+    };
 
-    }
+    this.verif_score = function (pile) {
+        if (this.verifier_Pile(pile) === 1) {
+            score_joueur1++;
+        } else if (this.verifier_Pile(pile) === 2) {
+            score_joueur2++;
+        }
+    };
+
+    // Verifie que la pile "pile" est plus de 5
+    this.verifier_Pile = function (pile) {
+        if (pile.get_pile_total().length >= 5) {
+            return pile.get_couleur_dernier_pion();
+        }
+        return 0;
+    };
+
+    // MAJ les scores
+    this.verifier_Gagner = function () {
+        if (score_joueur1 >= 5) {
+            return 1;
+        }
+        if (score_joueur2 >= 5) {
+
+            return 2;
+        }
+        return 0;
+
+
+    };
+
+
 };

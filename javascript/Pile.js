@@ -6,21 +6,20 @@ var Pile = function () {
 
     /* La classe Pile est une classe qui crée une pile de pion. */
 
-
     "use strict";
-    var pile = new Array(10), nbPion = 0, ligne; // Nombre des pions.& Liste des pions
+    var pile = new Array(10), nb_pion = 0, ligne; // Nombre des pions.& Liste des pions
 
     for (ligne = 0; ligne < 10; ligne = ligne + 1) {
         pile[ligne] = -1; // On initialise la pile
     }
 
     /* Nombre de pions. */
-    this.getNbPion = function () {
-        return nbPion;
+    this.get_nb_pion = function () {
+        return nb_pion;
     };
 
     /* Pion d'indice "indice" */
-    this.getPion = function (indice) {
+    this.get_pion = function (indice) {
         return pile[indice];
     };
 
@@ -30,38 +29,35 @@ var Pile = function () {
     };
 
     /* La couleur du dernier pion */
-    this.getCouleurDernierPion = function () {
-        return pile[nbPion - 1];
+    this.get_couleur_dernier_pion = function () {
+        return pile[nb_pion - 1];
     };
 
     /* Ajoute un pion si la case est vide*/
-    this.ajouterPion = function (color) {
+    this.ajouter_pion = function (color) {
         if (pile[0] === -1) {
-            pile[nbPion] = color;
-            nbPion = nbPion + 1;
+            pile[nb_pion] = color;
+            nb_pion = nb_pion + 1;
             return true;
         }
         return false;
-
     };
 
-    /* Ajoute un pion à une pile*/
-    this.ajouterPile = function (color) {
-        pile[nbPion] = color;
-        nbPion = nbPion + 1;
-    };
-    // remouve un pion
-    this.supprimerPion = function () {
-        pile[nbPion - 1] = -1;
-        nbPion = nbPion - 1;
-    };
-    //remove une pile
-    this.supprimerPile = function () {
-        //var pile;
-        for (pile = 0; pile < pile.length; pile = pile + 1) {
-            pile[pile] = -1;
+    /* Ajoute une pile à une pile*/
+    this.ajouter_pile = function (pile_depart, nombre) {
+        var i, taille = pile_depart.get_nb_pion() - nombre;
+        for (i = 0; i < nombre; i++) {
+            pile[nb_pion + i] = pile_depart.get_pion(taille + i);
         }
-        nbPion = 0;
+        nb_pion = nb_pion + nombre;
+    };
+
+    this.supprimer_pile = function (nombre) {
+        var i;
+        for (i = this.get_nb_pion() - 1; i >= 0; i--) {
+            pile[i] = -1;
+        }
+        nb_pion = this.get_nb_pion() - nombre;
     };
 
 };
