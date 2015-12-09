@@ -32,9 +32,14 @@ projectEngineTestCase.prototype.test_jouer_pion = function () {
 projectEngineTestCase.prototype.test_jouer_colonne = function () {
     var e = new Engine();
     e.init_plateau();
+
     e.jouer(2);
+
     e.jouer(3);
+
     e.deplacer(3, 2, 1);
+
+
     assertEquals(e.get_pile(2).get_couleur_dernier_pion(), 2);
     assertEquals(e.get_pile(2).get_nb_pion(), 2);
     assertEquals(e.get_pile(3).get_nb_pion(), 0);
@@ -177,15 +182,24 @@ projectEngineTestCase.prototype.test_liste_coup_possible = function () {
 
     e.jouer(18);//1
 
-
-    e.afficher();
-    /*e.liste_coup_possible();
-     console.log(e.get_liste_coup().length);
-     console.log(e.get_liste_coup());
-
-     console.log(e.get_liste_mouvement().length);
-     console.log(e.get_liste_mouvement());*/
     e.jouer_ia();
-    e.afficher();
 
 };
+
+
+projectEngineTestCase.prototype.test_sans_repetition = function () {
+    var e = new Engine();
+    e.init_plateau();
+
+    e.jouer(8);//2
+    e.jouer(9);//1
+
+    e.deplacer(9, 8, 1);
+
+    assertException(function () {
+        e.deplacer(8,9,1);
+    }, "exception_deplacer");
+
+
+};
+

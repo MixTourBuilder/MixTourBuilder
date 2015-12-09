@@ -13,13 +13,15 @@ function Exception_ia() {
 var Engine = function () {
 
     //Variables :
-    var plateau = new Array(5), ligne, nb_pions_total = 0, nb_pions_joueur1 = 25,
+    var plateau = new Array(5), dernier_plateau = new Array(5), avant_dernier_plateau = new Array(5), ligne, nb_pions_total = 0, nb_pions_joueur1 = 25,
         nb_pions_joueur2 = 25, score_joueur1 = 0, score_joueur2 = 0, joueur_courant = 1,
         liste_coup = new Array(), liste_mouvement = new Array();
 
 
     for (ligne = 0; ligne < 5; ligne++) {
         plateau[ligne] = new Array(5);
+        dernier_plateau[ligne] = new Array(5);
+        avant_dernier_plateau[ligne] = new Array(5);
     }
 
 
@@ -32,6 +34,8 @@ var Engine = function () {
         for (i = 0; i < plateau.length; i++) {
             for (j = 0; j < plateau.length; j++) {
                 plateau[i][j] = new Pile();
+                dernier_plateau[i][j] = new Pile();
+                avant_dernier_plateau[i][j] = new Pile();
             }
         }
     };
@@ -111,6 +115,19 @@ var Engine = function () {
         coup.positionY < 5 && coup.positionY >= 0);
     };
 
+    this.sauv_plateau = function () {
+        var i, j;
+        for (i = 0; i < 5; i++) {
+            for (j = 0; j < 5; j++) {
+               // console.log("ADP : " + avant_dernier_plateau[i][j].get_nb_pion() + " DP :" + dernier_plateau[i][j].get_nb_pion() + " P : " + plateau[i][j].get_nb_pion());
+                avant_dernier_plateau[i][j].copie(dernier_plateau[i][j]);
+                dernier_plateau[i][j].copie(plateau[i][j]);
+                //console.log("   ADP : " + avant_dernier_plateau[i][j].get_nb_pion() + " DP :" + dernier_plateau[i][j].get_nb_pion() + " P : " + plateau[i][j].get_nb_pion());
+
+            }
+        }
+    };
+
     // Jouer un coup quand la case est vide
     this.jouer = function (position) {
         var coup = this.convert_position(position), value;
@@ -122,24 +139,43 @@ var Engine = function () {
 
 
         if (this.coup_possible(coup) &&
-            plateau[coup.positionY][coup.positionX].get_nb_pion() === 0 &&
-            value !== 0) {
+                plateau[coup.positionY][coup.positionX].get_nb_pion() === 0 &&
+                value !== 0) {
+            this.sauv_plateau();
             plateau[coup.positionY][coup.positionX].ajouter_pion(joueur_courant);
             nb_pions_total++;
             this.decrementer_joueur();
             this.switch_joueur();
-
         } else {
             throw new Exception_jouer();
         }
     };
-
 
     this.afficher = function () {
         console.log(" ");
         for (var i = 0; i < 5; i++) {
 
             console.log(plateau[i][0].get_nb_pion() + " " + plateau[i][1].get_nb_pion() + " " + plateau[i][2].get_nb_pion() + " " + plateau[i][3].get_nb_pion() + " " + plateau[i][4].get_nb_pion());
+        }
+        console.log(" ");
+
+    };
+
+    this.afficher_dernier = function () {
+        console.log(" ");
+        for (var i = 0; i < 5; i++) {
+
+            console.log(dernier_plateau[i][0].get_nb_pion() + " " + dernier_plateau[i][1].get_nb_pion() + " " + dernier_plateau[i][2].get_nb_pion() + " " + dernier_plateau[i][3].get_nb_pion() + " " + dernier_plateau[i][4].get_nb_pion());
+        }
+        console.log(" ");
+
+    };
+
+    this.afficher_avant_dernier = function () {
+        console.log(" ");
+        for (var i = 0; i < 5; i++) {
+
+            console.log(avant_dernier_plateau[i][0].get_nb_pion() + " " + avant_dernier_plateau[i][1].get_nb_pion() + " " + avant_dernier_plateau[i][2].get_nb_pion() + " " + avant_dernier_plateau[i][3].get_nb_pion() + " " + avant_dernier_plateau[i][4].get_nb_pion());
         }
         console.log(" ");
 
@@ -226,14 +262,42 @@ var Engine = function () {
         plateau[coup.positionY][coup.positionX].get_nb_pion() >= nombre);
     };
 
+    this.sans_repetition = function(){
+        var i,j;
+        for(i=0; i< 5; i++){
+            for(j=0; j< 5; j++){
+               //console.log("i : "+i+" j:"+j);
+                var value = avant_dernier_plateau[i][j].egal(plateau[i][j]);
+               // console.log("value : "+value+"\n");
+                if(! value){
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+
+
     // On déplace une pile sur une autre
     this.deplacer = function (depart, destination, nombre) {
         var coupA = this.convert_position(depart), coupB = this.convert_position(destination);
         if (this.mouvement_valide(depart, destination, nombre)) {
+            this.sauv_plateau();
             plateau[coupB.positionY][coupB.positionX].
                 ajouter_pile(plateau[coupA.positionY][coupA.positionX], nombre);
             plateau[coupA.positionY][coupA.positionX].supprimer_pile(nombre);
-            this.verif_score(plateau[coupB.positionY][coupB.positionX]);
+
+            if(this.sans_repetition()) {
+                this.verif_score(plateau[coupB.positionY][coupB.positionX]);
+            } else {
+               // console.log("HIT");
+                plateau[coupA.positionY][coupA.positionX].
+                    ajouter_pile(plateau[coupB.positionY][coupB.positionX], nombre);
+                plateau[coupB.positionY][coupB.positionX].supprimer_pile(nombre);
+
+                throw new Exception_deplacer();
+            }
+
         } else {
             throw new Exception_deplacer();
         }
@@ -399,5 +463,12 @@ var Engine = function () {
             throw new Exception_ia();
         }
     };
+
+    /* fonction d'évaluation */
+
+    this.evaluer = function (joueur) {
+
+    }
+
 
 };

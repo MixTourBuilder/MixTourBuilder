@@ -44,6 +44,7 @@ var Pile = function () {
 
     };
 
+
     /* Ajoute une pile à une pile*/
     this.ajouter_pile = function (pile_depart, nombre) {
         var i, taille = pile_depart.get_nb_pion() - nombre;
@@ -55,11 +56,30 @@ var Pile = function () {
 
     this.supprimer_pile = function (nombre) {
         var i;
-        for (i = this.get_nb_pion() - 1; i >= 0; i--) {
-            pile[i] = -1;
+        for (i = 0; i < nombre; i++){
+            pile[this.get_nb_pion() - i - 1] = -1;
         }
         nb_pion = this.get_nb_pion() - nombre;
     };
 
+    this.copie = function (pile2) {
+        var i;
+        for (i = 0; i < 10; i++) {
+            pile[i] = pile2.get_pion(i);
+            nb_pion = pile2.get_nb_pion();
+        }
+    };
+
+    this.egal = function (pile2) {
+        var i;
+        for (i = 0; i < 10; i++) {
+            if (this.get_pion(i) !== pile2.get_pion(i)) {
+               // console.log("bit : " + i);
+                //console.log("pilei : " + this.get_pion(i) + " pile2i : " + pile2.get_pion(i));
+                return false;
+            }
+        }
+        return true;
+    };
 
 };
