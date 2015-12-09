@@ -463,12 +463,7 @@ var Engine = function () {
             throw new Exception_ia();
         }
     };
-
-    /* fonction d'évaluation */
-
-    this.evaluer = function (joueur) {
-
-    }
+    
 
 
 };
