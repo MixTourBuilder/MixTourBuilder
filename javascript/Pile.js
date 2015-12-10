@@ -23,11 +23,6 @@ var Pile = function () {
         return pile[indice];
     };
 
-    /* Retourne le tableau de la pile.*/
-    this.get_pile_total = function () {
-        return pile;
-    };
-
     /* La couleur du dernier pion */
     this.get_couleur_dernier_pion = function () {
         return pile[nb_pion - 1];

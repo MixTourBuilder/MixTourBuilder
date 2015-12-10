@@ -232,7 +232,6 @@ projectEngineTestCase.prototype.test_hill_climber = function () {
     e.jouer(9);//2
     e.deplacer(9, 8, 1); // 2
 
-
     e.jouer(12);//1
     e.jouer(13);//2
     e.deplacer(13, 12, 1);//2
