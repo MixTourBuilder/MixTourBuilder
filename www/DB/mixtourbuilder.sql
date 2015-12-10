@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 08 Décembre 2015 à 13:14
+-- Généré le :  Jeu 10 Décembre 2015 à 11:16
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -31,21 +31,43 @@ CREATE TABLE IF NOT EXISTS `joueur` (
   `Nom` varchar(165) NOT NULL,
   `Prenom` varchar(165) NOT NULL,
   `Pseudo` varchar(10) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password` varchar(100) NOT NULL,
   `Sexe` enum('F','M') NOT NULL,
   `DateNaissance` date NOT NULL,
+  `Email` varchar(50) NOT NULL,
   PRIMARY KEY (`NumJoueur`),
-  UNIQUE KEY `Pseudo` (`Pseudo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  UNIQUE KEY `Pseudo` (`Pseudo`),
+  UNIQUE KEY `Email` (`Email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Contenu de la table `joueur`
 --
 
-INSERT INTO `joueur` (`NumJoueur`, `Nom`, `Prenom`, `Pseudo`, `Password`, `Sexe`, `DateNaissance`) VALUES
-(1, 'Dupont', 'Jean', 'Jean2015', 'password', 'M', '1985-12-09'),
-(2, 'Dupond', 'Jeanne', 'Jeanne2015', 'password', 'F', '1990-12-03'),
-(3, 'Tarzan', 'WildJungle', 'Banana2015', 'password', 'M', '1989-12-03');
+INSERT INTO `joueur` (`NumJoueur`, `Nom`, `Prenom`, `Pseudo`, `Password`, `Sexe`, `DateNaissance`, `Email`) VALUES
+(25, 'hafid', 'zakaria', 'zachari93', '1993206', 'M', '1993-06-20', 'zhafid16@gmail.com'),
+(26, 'Ropital', 'Kevin', 'Keke', 'Keke2015', 'M', '1993-07-20', 'ropital.kevin@hotmail.fr'),
+(27, 'Trabelsi', 'Nadir', 'DracZakk', 'password123', 'M', '1992-10-13', 'nadir1310@gmail.com'),
+(28, 'Aoudia', 'Moncef', 'Spica199', 'Root19', 'M', '1993-05-19', 'moncf1999@gmail.com'),
+(29, 'test1', 'test1', 'test1', '$1$r54.YV0.$jhUVLq6Eez0Hwmd1PG1kR.', 'M', '2015-12-01', 'test1@gmail.com'),
+(30, 'hza', 'zakaria', 'massawi33', '$1$WE0.nu4.$x7NfqE5KvHoHtiTrpsYJQ0', 'M', '1993-03-21', 'massawi33@gmail.com'),
+(31, 'Echchouik', 'Yassine', 'yassinou92', '$1$kl3.dj0.$Qpc0cxFHqwWk0bfSqPG211', 'M', '1992-06-21', 'E.Yassine92@gmail.com');
+
+--
+-- Déclencheurs `joueur`
+--
+DROP TRIGGER IF EXISTS `CheckDate`;
+DELIMITER //
+CREATE TRIGGER `CheckDate` BEFORE INSERT ON `joueur`
+ FOR EACH ROW begin
+Declare msg varchar(165);
+if((NOW()<=New.DateNaissance) )then
+  set msg = concat('MyTriggerError: Trying to insert a superior date to now ');
+        signal sqlstate '45000' set message_text = msg;
+    end if;
+end
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -65,18 +87,7 @@ CREATE TABLE IF NOT EXISTS `partie` (
   KEY `FK_Partie_Num_Joueur` (`NumJoueur`),
   KEY `FK_Partie_Num_Joueur_1` (`NumJoueur2`),
   KEY `FK_Partie_Num_Joueur_2` (`NumJoueurGagnant`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
-
---
--- Contenu de la table `partie`
---
-
-INSERT INTO `partie` (`NumPartie`, `Tournoi`, `DatePartie`, `NumJoueur`, `NumJoueur2`, `Score`, `NumJoueurGagnant`) VALUES
-(1, 1, '2015-12-07', 1, 3, 10, 3),
-(2, 0, '2015-12-01', 1, 2, 10, 2),
-(3, 1, '2015-12-07', 2, 3, 10, 2),
-(4, 1, '2015-12-16', 3, 1, 10, 3),
-(5, 1, '2015-12-09', 1, 2, 50, 2);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Déclencheurs `partie`
