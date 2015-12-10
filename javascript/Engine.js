@@ -131,7 +131,7 @@ var Engine = function () {
         }
 
         if (this.coup_sur_plateau(coup) &&
-            plateau[coup.positionY][coup.positionX].get_nb_pion() === 0 && value !== 0) {
+                plateau[coup.positionY][coup.positionX].get_nb_pion() === 0 && value !== 0) {
             this.sauv_plateau();
             plateau[coup.positionY][coup.positionX].ajouter_pion(joueur_courant);
             nb_pions_total++;
@@ -210,8 +210,8 @@ var Engine = function () {
             return true;
         }
         return ((position === "diagonal1" || position === "diagonal2") &&
-        (Math.abs(coupA.positionX - coupB.positionX) +
-        Math.abs(coupA.positionY - coupB.positionY)) / 2 <= taille);
+            (Math.abs(coupA.positionX - coupB.positionX) +
+                Math.abs(coupA.positionY - coupB.positionY)) / 2 <= taille);
     };
 
     this.verif_parcours = function (depart, arrivee, tmp_posX, tmp_posY) {
@@ -296,7 +296,6 @@ var Engine = function () {
         }
         return 0;
     };
-
 
 
     /* --------------------IA---------------------------*/
@@ -406,48 +405,37 @@ var Engine = function () {
 
     // Algo Hill_climber qui trouve le meilleur coup.
     this.hill_climber = function () {
-        var meilleur_coup = liste_coup[0], meilleur_valeur = -9999999999.0, i,
-            valeur_courante, coup, random, depart, dest, taille;
+        var meilleur_coup = liste_coup[0], meilleur_valeur = -9999999999.0, i, valeur_courante, depart, dest;
 
         for (i = 0; i < liste_coup.length; i++) {
-            coup = this.convert_position(liste_coup[i]);
-            plateau[coup.positionY][coup.positionX].ajouter_pion(joueur_courant);
+            this.ajouter_coup(liste_coup[0]);
             valeur_courante = this.evaluation(joueur_courant);
-            random = Math.floor(Math.random() * 100);
 
             if (valeur_courante > meilleur_valeur) {
                 meilleur_valeur = valeur_courante;
                 meilleur_coup = liste_coup[i];
-            } else if (valeur_courante === meilleur_valeur && random < 5) {
+            } else if (valeur_courante === meilleur_valeur && Math.floor(Math.random() * 100) < 5) {
                 meilleur_valeur = valeur_courante;
                 meilleur_coup = liste_coup[i];
-
             }
-            plateau[coup.positionY][coup.positionX].supprimer_pion();
+            this.enlever_coup(liste_coup[0]);
 
         }
 
-
         for (i = 0; i < liste_mouvement.length; i++) {
-            depart = this.convert_coup(liste_mouvement[i].charCodeAt(3) - 48,
-                liste_mouvement[i].charCodeAt(1) - 48);
-            dest = this.convert_coup(liste_mouvement[i].charCodeAt(8) - 48,
-                liste_mouvement[i].charCodeAt(6) - 48);
+            dest = this.convert_position(this.convert_coup(liste_mouvement[i].charCodeAt(8) - 48,
+                liste_mouvement[i].charCodeAt(6) - 48));
+            depart = this.convert_position(this.convert_coup(liste_mouvement[i].charCodeAt(3) - 48,
+                liste_mouvement[i].charCodeAt(1) - 48));
 
-            dest = this.convert_position(dest);
-            depart = this.convert_position(depart);
-
-            taille = liste_mouvement[i].charCodeAt(10) - 48;
-
-            this.deplacer_sans_verif(depart, dest, taille);
-
+            this.deplacer_sans_verif(depart, dest, (liste_mouvement[i].charCodeAt(10) - 48));
 
             valeur_courante = this.evaluation(joueur_courant);
             if (valeur_courante > meilleur_valeur) {
                 meilleur_valeur = valeur_courante;
                 meilleur_coup = liste_mouvement[i];
             }
-            this.deplacer_sans_verif(dest, depart, taille);
+            this.deplacer_sans_verif(dest, depart, (liste_mouvement[i].charCodeAt(10) - 48));
         }
         return String(meilleur_coup);
     };
@@ -460,8 +448,19 @@ var Engine = function () {
         plateau[depart.positionY][depart.positionX].supprimer_pile(nombre);
     };
 
-    // on ajoute un coup dans la liste avec pour syntaxe X,Y->X1,Y1(N), avec X,Y les coordonnées du point de départ, et
-    // X1,Y1 les coordonnées du point d'arrivée.  N est la taille de la pile a bouger.
+    this.ajouter_coup = function (indice) {
+        var coup = this.convert_position(indice);
+        plateau[coup.positionY][coup.positionX].ajouter_pion(joueur_courant);
+    };
+
+    this.enlever_coup = function (indice) {
+        var coup = this.convert_position(indice);
+        plateau[coup.positionY][coup.positionX].supprimer_pion();
+    };
+
+    // on ajoute un coup dans la liste avec pour syntaxe X,Y->X1,Y1(N),
+    // avec X,Y les coordonnées du point de départ,
+    // et X1,Y1 les coordonnées du point d'arrivée.  N est la taille de la pile a bouger
     this.ajouter_mouvement_possible = function (liste, i, j, tmpi, tmpj) {
         var k;
         for (k = 1; k <= plateau[i + tmpi][j + tmpj].get_nb_pion(); k++) {
@@ -487,13 +486,17 @@ var Engine = function () {
 
             // Diagonal1
             liste = this.verification_direction(liste, i, j, increment,
-                (i + increment < 5 && j + increment < 5 && plateau[i + increment][j + increment].get_nb_pion() !== 0),
-                (i - increment >= 0 && j - increment >= 0 && plateau[i - increment][j - increment].get_nb_pion() !== 0), 1, 1);
+                (i + increment < 5 && j + increment < 5 &&
+                plateau[i + increment][j + increment].get_nb_pion() !== 0),
+                (i - increment >= 0 && j - increment >= 0 &&
+                plateau[i - increment][j - increment].get_nb_pion() !== 0), 1, 1);
 
             // Diagonal2
             liste = this.verification_direction(liste, i, j, increment,
-                (i + increment < 5 && j - increment >= 0 && plateau[i + increment][j - increment].get_nb_pion() !== 0),
-                (i - increment >= 0 && j + increment < 5 && plateau[i - increment][j + increment].get_nb_pion() !== 0), 1, -1);
+                (i + increment < 5 && j - increment >= 0 &&
+                plateau[i + increment][j - increment].get_nb_pion() !== 0),
+                (i - increment >= 0 && j + increment < 5 &&
+                plateau[i - increment][j + increment].get_nb_pion() !== 0), 1, -1);
 
         }
 
