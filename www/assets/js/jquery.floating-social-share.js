@@ -1,11 +1,4 @@
-/*!
- * jQuery Floating Social Share Plugin v1.1.0
- * http://burakozdemir.co.uk
- * Copyright 2015 Burak Özdemir - <https://github.com/ozdemirburak>
- * Released under the MIT license
- */
-
-;(function($, window, document, undefined) {
+(function($, window, document, undefined) {
 
     "use strict";
 

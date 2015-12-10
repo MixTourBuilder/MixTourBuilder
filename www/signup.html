@@ -1,145 +1,104 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>SignUp</title>
-		<link rel="icon" href="images/favicon.jpg" />
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="assets/css/signup.css" />
-    <link rel="stylesheet" type="text/css" href="assets/css/slid.css" />
-    <script type="text/javascript" src="assets/js/modernizr.custom.86080.js"></script>
-
-
+   <head>
+      <title>SignUp</title>
+      <link rel="icon" href="images/favicon.jpg" />
+      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      <link rel="stylesheet" href="assets/css/signup.css" />
+      <link rel="stylesheet" type="text/css" href="assets/css/slid.css" />
+      <script type="text/javascript" src="assets/js/modernizr.custom.86080.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
       <link rel="stylesheet" type="text/css" href="assets/css/jquery.floating-social-share.min.css" />
       <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
       <script type="text/javascript" src="assets/js/jquery.floating-social-share.min.js"></script>
-
-
       <meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+   </head>
+   <body>
+      <div class="body body-s">
+         <form action="#" class="sign-form" method="post" action="inscription.php">
+            <header><center><label>Inscription</label></header>
+            <fieldset>
+               <section>
+                  <label class="input">
+                  <i class="icon-append icon-user"></i>
+                  <input type="text" name="pseudo" id="pseudo" maxlength="40" placeholder="Pseudo"  required/>
+                  <b class="tooltip tooltip-bottom-right">Vous pouvez utiliser des lettres, des chiffres</b>
+                  </label>
+               </section>
+               <section>
+                  <label class="input">
+                  <i class="icon-append icon-envelope-alt"></i>
+                  <input type="mail" name="mail" id="mail" maxlength="40" placeholder="Adresse e-mail"  required/>
+                  <b class="tooltip tooltip-bottom-right">Vérification de votre compte</b>
+                  </label>
+               </section>
+               <section>
+                  <label class="input">
+                  <i class="icon-append icon-lock"></i>
+                  <input type="password" placeholder="Mot de passe">
+                  <b class="tooltip tooltip-bottom-right">Vous pouvez utiliser des lettres, des chiffres</b>
+                  </label>
+               </section>
+               <section>
+                  <label class="input">
+                  <i class="icon-append icon-calendar"></i>
+                  <input type="date" name="age" id="age" maxlength="40" required/>
+                  <b class="tooltip tooltip-bottom-right">Vérification de votre âge</b>
+                  </label>
+               </section>
+            </fieldset>
+            <fieldset>
+               <div class="row">
+                  <section class="col col-6">
+                     <label class="input">
+                     <input type="text" name="nom" id="nom" maxlength="40" placeholder="Nom"  required/>
+                     </label>
+                  </section>
+                  <section class="col col-6">
+                     <label class="input">
+                     <input type="text" name="prenom" id="prenom" maxlength="40" placeholder="Prénom"  required/>
+                     </label>
+                  </section>
+               </div>
+               <section>
+                  <label class="select">
+                     <select>
+                        <option value="0" selected disabled>Sexe</option>
+                        <option value="1">Homme</option>
+                        <option value="2">Femme</option>
+                        <option value="3">Autre</option>
+                     </select>
+                     <i></i>
+                  </label>
+               </section>
+               <section>
+                  <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>j'accepte les conditions générales</label>
+               </section>
+            </fieldset>
+            <footer>
 
-		</head>
+               <button type="submit" class="button">Envoyer</button>
 
-	<body>
-
-<!--
-		<header>
-
-      <ul class="cb-slideshow">
-        <li><span>Image 01</span></li>
-        <li><span>Image 02</span></li>
-        <li><span>Image 03</span></li>
-        <li><span>Image 04</span></li>
-        <li><span>Image 05</span></li>
-        <li><span>Image 06</span></li>
-      </ul>
-     --> 
-    </header>
-
-    <div class="body body-s">
-		
-			<form action="#" class="sky-form" method="post" action="inscription.php">
-				<header>Registration form</header>
-				
-				<fieldset>					
-					<section>
-						<label class="input">
-							<i class="icon-append icon-user"></i>
-							
-							<input type="text" name="pseudo" id="pseudo" maxlength="40" placeholder="Username"  required/>
-							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
-						</label>
-					</section>
-					
-					<section>
-						<label class="input">
-							<i class="icon-append icon-envelope-alt"></i>
-							<input type="mail" name="mail" id="mail" maxlength="40" placeholder="Email address"  required/>
-							<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
-						</label>
-					</section>
-					
-					<section>
-						<label class="input">
-							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Password">
-							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
-						</label>
-					</section>
-					
-					<section>
-						<label class="input">
-							<i class="icon-append icon-lock"></i>
-							<input type="password" placeholder="Confirm password">
-							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
-						</label>
-					</section>
-					<section>
-						<label class="input">
-							<i class="icon-append icon-calendar"></i>
-							<input type="date" name="age" id="age" maxlength="40" required/>
-							<b class="tooltip tooltip-bottom-right">Needed to verify your age</b>
-						</label>
-					</section>
-				</fieldset>
-					
-				<fieldset>
-					<div class="row">
-						<section class="col col-6">
-							<label class="input">
-								<input type="text" name="nom" id="nom" maxlength="40" placeholder="First name"  required/>
-							</label>
-						</section>
-						<section class="col col-6">
-							<label class="input">
-								<input type="text" name="prenom" id="prenom" maxlength="40" placeholder="Last name"  required/>
-							</label>
-						</section>
-					</div>
-					
-					<section>
-						<label class="select">
-							<select>
-								<option value="0" selected disabled>Gender</option>
-								<option value="1">Male</option>
-								<option value="2">Female</option>
-								<option value="3">Other</option>
-							</select>
-							<i></i>
-						</label>
-					</section>
-					
-					<section>
-						<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>I agree to the Terms of Service</label>
-						<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>I want to receive news and  special offers</label>
-					</section>
-				</fieldset>
-				<footer>
-					<button type="submit" class="button">Submit</button>
-				</footer>
-			</form>
-			
-		</div>
-
-    <div id="main">
-            <script>
-                  $("body").floatingSocialShare({
-                    place: "top-left", // alternatively top-right
-                      counter: true, // set to false for hiding the counters of buttons
-                      buttons: [ "facebook", "twitter", "google-plus", "linkedin", "pinterest","tumblr", "vk"], // all of the currently avalaible social buttons
-                      title: document.title, // your title, default is current page's title
-                      url: "https://www.facebook.com/MixtourEventOfficiel/?fref=ts",  // your url, default is current page's url
-                      text: "share with ", // the title of a tags
-                      description: $('meta[name="description"]').attr("content"), // your description, default is current page's description
-                      popup_width: 400, // the sharer popup width, default is 400px
-                      popup_height: 300 // the sharer popup height, default is 300px
-                  });
-
-            </script>
-			
-
-
-
-			</div>
-	</body>
-</html>							
+               <input  class="button" Type="BUTTON" Value="  Retour " Onclick="window.location.href='index.html'"> 
+                                 
+         </form>
+      </div>
+      <div id="main">
+         <script>
+            $("body").floatingSocialShare({
+              place: "top-left", // alternatively top-right
+                counter: true, // set to false for hiding the counters of buttons
+                buttons: [ "facebook", "twitter", "google-plus", "linkedin", "pinterest","tumblr", "vk"], // all of the currently avalaible social buttons
+                title: document.title, // your title, default is current page's title
+                url: "https://www.facebook.com/MixtourEventOfficiel/?fref=ts",  // your url, default is current page's url
+                text: "share with ", // the title of a tags
+                description: $('meta[name="description"]').attr("content"), // your description, default is current page's description
+                popup_width: 400, // the sharer popup width, default is 400px
+                popup_height: 300 // the sharer popup height, default is 300px
+            });
+            
+         </script>
+      </div>
+   </body>
+</html>
