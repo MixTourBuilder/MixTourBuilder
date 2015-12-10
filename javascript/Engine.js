@@ -147,17 +147,13 @@ var Engine = function () {
         var coupA = this.convert_position(depart), coupB = this.convert_position(destination);
         if (this.mouvement_valide(depart, destination, nombre)) {
             this.sauv_plateau();
-            plateau[coupB.positionY][coupB.positionX].
-                ajouter_pile(plateau[coupA.positionY][coupA.positionX], nombre);
-            plateau[coupA.positionY][coupA.positionX].supprimer_pile(nombre);
+            this.deplacer_sans_verif(coupA, coupB, nombre);
 
             if (this.sans_repetition()) {
                 this.verif_score(plateau[coupB.positionY][coupB.positionX]);
                 this.switch_joueur();
             } else {
-                plateau[coupA.positionY][coupA.positionX].
-                    ajouter_pile(plateau[coupB.positionY][coupB.positionX], nombre);
-                plateau[coupB.positionY][coupB.positionX].supprimer_pile(nombre);
+                this.deplacer_sans_verif(coupA, coupB, nombre);
 
                 throw new Exception_deplacer();
             }
@@ -203,10 +199,12 @@ var Engine = function () {
     this.verification_distance = function (depart, destination, position) {
         var coupA = this.convert_position(depart), coupB = this.convert_position(destination),
             taille = plateau[coupB.positionY][coupB.positionX].get_nb_pion();
-        if (position === "horizontal" && (coupA.positionX - coupB.positionX) <= taille) {
+        console.log("taille : "+ taille);
+        console.log((coupA.positionY - coupB.positionY));
+        if (position === "horizontal" && Math.abs((coupA.positionX - coupB.positionX)) <= taille) {
             return true;
         }
-        if (position === "vertical" && (coupA.positionY - coupB.positionY) <= taille) {
+        if (position === "vertical" && Math.abs((coupA.positionY - coupB.positionY)) <= taille) {
             return true;
         }
         return ((position === "diagonal1" || position === "diagonal2") &&
@@ -215,13 +213,18 @@ var Engine = function () {
     };
 
     this.verif_parcours = function (depart, arrivee, tmp_posX, tmp_posY) {
-        var tmp_coup = depart, tmp_arret = arrivee;
+        var tmp_coup = JSON.parse(JSON.stringify(depart)), tmp_arret = JSON.parse(JSON.stringify(arrivee));
+        tmp_coup.positionX += tmp_posX;
+        tmp_coup.positionY += tmp_posY;
         while (this.coup_sur_plateau(tmp_coup)) {
-            tmp_coup.positionX += tmp_posX;
-            tmp_coup.positionY += tmp_posY;
             if (tmp_coup.positionX === tmp_arret.positionX &&
                 tmp_coup.positionY === tmp_arret.positionY) {
                 return true;
+            } else if( plateau[tmp_coup.positionY][tmp_coup.positionX].get_nb_pion() > 0) {
+                return false;
+            } else {
+                tmp_coup.positionX += tmp_posX;
+                tmp_coup.positionY += tmp_posY;
             }
         }
         return false;
@@ -231,6 +234,7 @@ var Engine = function () {
     this.verification_premier = function (depart, destination, position) {
         var coupA = this.convert_position(depart), coupB = this.convert_position(destination),
             tmp_posY = 0, tmp_posX = 1;
+
         if (position === "vertical") {
             tmp_posY = 1;
             tmp_posX = 0;
@@ -241,18 +245,24 @@ var Engine = function () {
             tmp_posY = -1;
             tmp_posX = 1;
         }
-        return this.verif_parcours(coupA, coupB, tmp_posX, tmp_posY) ||
-            this.verif_parcours(coupB, coupA, tmp_posX, tmp_posY);
+        var value = this.verif_parcours(coupA, coupB, tmp_posX, tmp_posY);
+        var value2 = this.verif_parcours(coupA, coupB, -tmp_posX, -tmp_posY);;
+
+
+        return value || value2;
 
     };
 
     // On fait toutes les vérifications pour être sur que le mouvement de pile est autorisé
     this.mouvement_valide = function (depart, destination, nombre) {
         var position = this.verification_position(depart, destination),
-            coup = this.convert_position(depart);
+            coup = this.convert_position(depart),
+            coup2 = this.convert_position(destination);
+
         return (position !== 0 && this.verification_distance(depart, destination, position) &&
         this.verification_premier(depart, destination, position) &&
-        plateau[coup.positionY][coup.positionX].get_nb_pion() >= nombre);
+        plateau[coup.positionY][coup.positionX].get_nb_pion() >= nombre &&
+            plateau[coup2.positionY][coup2.positionX].get_nb_pion() > 0);
     };
 
     this.sans_repetition = function () {
@@ -306,7 +316,9 @@ var Engine = function () {
     this.jouer_ia = function () {
         var tmp, depart, dest, n;
         this.liste_coup_possible();
+
         //tmp = this.random_ia();
+
         tmp = this.hill_climber();
 
         if (tmp.charCodeAt(0) === 32) {

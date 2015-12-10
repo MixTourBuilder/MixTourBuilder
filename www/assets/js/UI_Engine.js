@@ -53,7 +53,7 @@ UI_Engine = function( ){
         
         draw();
 
-	}
+	};
 
 	//Mouse Click Event
 	var onClick = function(event){
@@ -64,50 +64,76 @@ UI_Engine = function( ){
         console.log(x,y);
         var position = coord_to_position(x,y);
         
-        //if(game.get_joueur_courant()===1){
-        	if(game.get_pile(position).get_nb_pion()===0){
-        		try{
-        			console.log(position);
-	        		game.jouer(position);
-        		}catch(e){
-	        		if(e instanceof Exception_jouer){
-        				alert("Coup Impossible !");
-        				console.log("Coup Impossible !");
-        			}
-        		}
-        		draw();
-        	}else{
-        		if(numberClick == 0){
-        			firstPos ={x:x,y:y};
-        			firstPosition = position;
-        			numberClick = 1;
-        			draw_number_click(numberClick, x, y);
-        		} else if (x == firstPos.x && y == firstPos.y) {
-                    if(numberClick < game.get_pile(firstPosition).get_nb_pion()) {
-                    	numberClick++;
-                        draw_number_click(numberClick, x, y);
-                    }else{
-                        alert("You can't select that much Pawns, please try select less Pawn to move !");
-                         numberClick = 0;
+        if(game.get_joueur_courant()===1){
+        	if(numberClick == 0){
+                if(game.get_pile(position).get_nb_pion()===0){
+                    try{
+                        console.log(position);
+                        game.jouer(position);
+                        draw();
+                        jouer_ia();
+                    }catch(e){
+                        if(e instanceof Exception_jouer){
+                            alert("Coup Impossible !");
+                            console.log("Coup Impossible !");
+                        }
                     }
-        		} else {
-                	try{
-                		game.deplacer(firstPosition,position,numberClick);
-                		 numberClick = 0;
-                		 draw();
-                	}catch(e){
-                		if(e instanceof Exception_deplacer){
-                			alert("Deplacement Impossible !");
-                			console.log("Deplacement Impossible !");
-                			 numberClick = 0;
-                		}
-                	}
-                	draw();
-                	numberClick = 0;
-       		    }
-        	}
-        //}
+
+                } else {
+                    firstPos ={x:x,y:y};
+                    firstPosition = position;
+                    numberClick = 1;
+                    draw_number_click(numberClick, x, y);
+                }
+            } else if (x == firstPos.x && y == firstPos.y) {
+                if (numberClick < game.get_pile(firstPosition).get_nb_pion()) {
+                    numberClick++;
+                    draw_number_click(numberClick, x, y);
+                } else {
+                    alert("You can't select that much Pawns, please try select less Pawn to move !");
+                    numberClick = 0;
+                }
+            } else {
+
+                try{
+                    game.deplacer(firstPosition,position,numberClick);
+                    numberClick = 0;
+                    draw();
+                    jouer_ia();
+                }catch(e){
+                    if(e instanceof Exception_deplacer){
+                        alert("Deplacement Impossible !");
+                        console.log("Deplacement Impossible !");
+                        numberClick = 0;
+
+                    }
+                }
+                draw();
+                numberClick = 0;
+            }
+
+        } else {
+            //jouer_ia();
+        }
 	};
+
+    var jouer_ia = function(){
+        // Joueur 2
+        setTimeout(function()
+        {
+            try{
+                game.jouer_ia();
+                draw();
+            }
+            catch(e) {
+                if (e instanceof Exception_deplacer) {
+                    alert("Deplacement Impossible !");
+                    console.log("Deplacement Impossible !");
+                    numberClick = 0;
+                }
+            }
+        }, 1000);
+    };
 
 	// get click position on canvas
 	var getClickPosition = function (e) {
@@ -122,7 +148,7 @@ UI_Engine = function( ){
         
         draw_grid(); // draw the board
         
-        draw_state(); // draw the state of game
+        //draw_state(); // draw the state of game
         if (game.get_score_joueur(1) <5 && game.get_score_joueur(2) <5) {
             draw_score(game.get_score_joueur(1), game.get_score_joueur(2));
         }
@@ -166,9 +192,9 @@ UI_Engine = function( ){
   				var pile = game.get_pile(tmpPos);// je recupere la pile correspondant a la case du plateau
   				for (var hauteur = 0; hauteur < pile.get_nb_pion(); hauteur++) {// je parcours la pile
   					if(pile.get_pion(hauteur) === 1 ){//Joueur 1
-  						draw_pion(coupX,coupY,1); // on dessine le pion
+  						draw_pion(coupX,coupY,1, hauteur); // on dessine le pion
   					}else if(pile.get_pion(hauteur) ===2 ){//Joueur 2
-	  					draw_pion(coupX,coupY,2); // on dessine le pion
+	  					draw_pion(coupX,coupY,2, hauteur); // on dessine le pion
   					}
   				}
   			}
@@ -219,7 +245,7 @@ UI_Engine = function( ){
         context.fill();
     };
 
-    var draw_pion = function(posX,posY,player){
+    var draw_pion = function(posX,posY,player, number){
     	context.beginPath();
       	context.arc(offsetX + (posX + 0.5) * deltaX, offsetY + (posY + 0.5) * deltaY, 40, 0, 2 * Math.PI);
       	if(player === 1){
@@ -228,6 +254,16 @@ UI_Engine = function( ){
     		context.fillStyle = "#ffffff";
     	}
       	context.fill();
+
+
+        if(player === 1){
+            context.fillStyle = "#ffffff";
+        }else{
+            context.fillStyle = "#003366";
+        }
+
+        context.fillText(number+1,(posX*deltaX) +  55, (posY*deltaY) + 67);
+
       	context.lineWidth = 5;
       	context.strokeStyle = '#003300';
       	context.closePath();

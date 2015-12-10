@@ -203,25 +203,32 @@ var Engine = function () {
     this.verification_distance = function (depart, destination, position) {
         var coupA = this.convert_position(depart), coupB = this.convert_position(destination),
             taille = plateau[coupB.positionY][coupB.positionX].get_nb_pion();
-        if (position === "horizontal" && (coupA.positionX - coupB.positionX) <= taille) {
+        console.log("taille : "+ taille);
+        console.log((coupA.positionY - coupB.positionY));
+        if (position === "horizontal" && Math.abs((coupA.positionX - coupB.positionX)) <= taille) {
             return true;
         }
-        if (position === "vertical" && (coupA.positionY - coupB.positionY) <= taille) {
+        if (position === "vertical" && Math.abs((coupA.positionY - coupB.positionY)) <= taille) {
             return true;
         }
         return ((position === "diagonal1" || position === "diagonal2") &&
-            (Math.abs(coupA.positionX - coupB.positionX) +
-                Math.abs(coupA.positionY - coupB.positionY)) / 2 <= taille);
+        (Math.abs(coupA.positionX - coupB.positionX) +
+        Math.abs(coupA.positionY - coupB.positionY)) / 2 <= taille);
     };
 
     this.verif_parcours = function (depart, arrivee, tmp_posX, tmp_posY) {
-        var tmp_coup = depart, tmp_arret = arrivee;
+        var tmp_coup = JSON.parse(JSON.stringify(depart)), tmp_arret = JSON.parse(JSON.stringify(arrivee));
+        tmp_coup.positionX += tmp_posX;
+        tmp_coup.positionY += tmp_posY;
         while (this.coup_sur_plateau(tmp_coup)) {
-            tmp_coup.positionX += tmp_posX;
-            tmp_coup.positionY += tmp_posY;
             if (tmp_coup.positionX === tmp_arret.positionX &&
-                    tmp_coup.positionY === tmp_arret.positionY) {
+                tmp_coup.positionY === tmp_arret.positionY) {
                 return true;
+            } else if( plateau[tmp_coup.positionY][tmp_coup.positionX].get_nb_pion() > 0) {
+                return false;
+            } else {
+                tmp_coup.positionX += tmp_posX;
+                tmp_coup.positionY += tmp_posY;
             }
         }
         return false;
@@ -249,10 +256,13 @@ var Engine = function () {
     // On fait toutes les vérifications pour être sur que le mouvement de pile est autorisé
     this.mouvement_valide = function (depart, destination, nombre) {
         var position = this.verification_position(depart, destination),
-            coup = this.convert_position(depart);
+            coup = this.convert_position(depart),
+            coup2 = this.convert_position(destination);
+
         return (position !== 0 && this.verification_distance(depart, destination, position) &&
         this.verification_premier(depart, destination, position) &&
-        plateau[coup.positionY][coup.positionX].get_nb_pion() >= nombre);
+        plateau[coup.positionY][coup.positionX].get_nb_pion() >= nombre &&
+        plateau[coup2.positionY][coup2.positionX].get_nb_pion() > 0);
     };
 
     this.sans_repetition = function () {
