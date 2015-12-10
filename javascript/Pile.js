@@ -41,7 +41,6 @@ var Pile = function () {
             return true;
         }
         return false;
-
     };
 
 
@@ -56,10 +55,18 @@ var Pile = function () {
 
     this.supprimer_pile = function (nombre) {
         var i;
-        for (i = 0; i < nombre; i++){
+        for (i = 0; i < nombre; i++) {
             pile[this.get_nb_pion() - i - 1] = -1;
         }
         nb_pion = this.get_nb_pion() - nombre;
+    };
+
+    this.supprimer_pion = function () {
+        var i;
+        for (i = 0; i < 10; i++) {
+            pile[i] = -1;
+        }
+        nb_pion = 0;
     };
 
     this.copie = function (pile2) {
@@ -74,8 +81,6 @@ var Pile = function () {
         var i;
         for (i = 0; i < 10; i++) {
             if (this.get_pion(i) !== pile2.get_pion(i)) {
-               // console.log("bit : " + i);
-                //console.log("pilei : " + this.get_pion(i) + " pile2i : " + pile2.get_pion(i));
                 return false;
             }
         }

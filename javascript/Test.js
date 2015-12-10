@@ -33,21 +33,21 @@ projectEngineTestCase.prototype.test_jouer_colonne = function () {
     var e = new Engine();
     e.init_plateau();
 
-    e.jouer(2);
+    e.jouer(2);//1
 
-    e.jouer(3);
+    e.jouer(3);//2
 
-    e.deplacer(3, 2, 1);
+    e.deplacer(3, 2, 1);//1
 
 
     assertEquals(e.get_pile(2).get_couleur_dernier_pion(), 2);
     assertEquals(e.get_pile(2).get_nb_pion(), 2);
     assertEquals(e.get_pile(3).get_nb_pion(), 0);
 
-    e.jouer(11);
-    e.jouer(16);
-    e.deplacer(16, 11, 1);
-    assertEquals(e.get_pile(11).get_couleur_dernier_pion(), 2);
+    e.jouer(11);//2
+    e.jouer(16);//1
+    e.deplacer(16, 11, 1);//2
+    assertEquals(e.get_pile(11).get_couleur_dernier_pion(), 1);
     assertEquals(e.get_pile(11).get_nb_pion(), 2);
     assertEquals(e.get_pile(16).get_nb_pion(), 0);
 
@@ -72,7 +72,7 @@ projectEngineTestCase.prototype.test_jouer_colonne2 = function () {
     assertEquals(e.get_pile(3).get_nb_pion(), 0);
     e.jouer(3);
     e.deplacer(3, 2, 1);
-    assertEquals(e.get_pile(2).get_couleur_dernier_pion(), 1);
+    assertEquals(e.get_pile(2).get_couleur_dernier_pion(), 2);
     assertEquals(e.get_pile(2).get_nb_pion(), 3);
     assertEquals(e.get_pile(3).get_nb_pion(), 0);
     e.jouer(3);
@@ -100,7 +100,7 @@ projectEngineTestCase.prototype.test_verif_pile = function () {
     e.deplacer(3, 2, 1);
     e.jouer(3);//5
     e.deplacer(3, 2, 1);
-    assertEquals(e.verifier_Pile(e.get_tableau()[convert.positionY][convert.positionX]), 1);
+    assertEquals(e.verifier_Pile(e.get_tableau()[convert.positionY][convert.positionX]), 0);
 
 };
 
@@ -161,8 +161,7 @@ projectEngineTestCase.prototype.test_verif_gagner = function () {
     e.jouer(13);//1
     e.deplacer(13, 12, 1);
 
-    assertEquals(e.verifier_Gagner(), 1);
-
+    assertEquals(e.verifier_Gagner(), 2);
 };
 
 projectEngineTestCase.prototype.test_liste_coup_possible = function () {
@@ -184,6 +183,7 @@ projectEngineTestCase.prototype.test_liste_coup_possible = function () {
 
     e.jouer_ia();
 
+
 };
 
 
@@ -203,3 +203,83 @@ projectEngineTestCase.prototype.test_sans_repetition = function () {
 
 };
 
+
+projectEngineTestCase.prototype.test_evaluation = function () {
+    var e = new Engine();
+    e.init_plateau();
+
+    e.jouer(8);//1
+    e.jouer(9);//2
+    e.deplacer(9, 8, 1); // 2
+
+
+    e.jouer(12);//1
+    e.jouer(13);//2
+    e.deplacer(13, 12, 1);//2
+    e.jouer(13);//1
+    e.deplacer(13, 12, 1); // 1
+
+    e.jouer(18);//2
+
+};
+
+projectEngineTestCase.prototype.test_hill_climber = function () {
+    var e = new Engine();
+    e.init_plateau();
+    console.log("--------------------------");
+
+   /* e.jouer(8);//1
+    e.jouer(9);//2
+    e.deplacer(9, 8, 1); // 2
+
+
+    e.jouer(12);//1
+    e.jouer(13);//2
+    e.deplacer(13, 12, 1);//2
+    e.jouer(13);//1
+    e.deplacer(13, 12, 1); // 1
+
+    e.jouer(14);
+    e.afficher();
+
+    e.liste_coup_possible();*/
+
+
+
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+    e.jouer_ia();
+
+    e.afficher();
+
+};
