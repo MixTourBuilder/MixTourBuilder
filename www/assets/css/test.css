@@ -1,0 +1,63 @@
+@import url(https://fonts.googleapis.com/css?family=Orbitron:300,300italic,400,600);
+
+html {font-family: 'Orbitron', sans-serif;}
+
+body{	background-color:#E9EAED; 	background-repeat: no-repeat; 	background-size: 100% auto; 	font-size: 20px;	color: black;	margin:0;padding:0;}
+
+/** NAV BAR **/
+body #header { font-size: 18px;}
+
+#header {
+    top: 0;
+    left: 0;
+    margin-bottom: 0;
+    position: fixed;
+    right: 0;
+    z-index: 1030;
+    margin-bottom: 20px;
+    overflow: visible;
+    background-repeat: repeat-x;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+    border-width: 0 0 1px;
+    background: rgb(167,207,223); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(167,207,223,1) 0%, rgba(35,83,138,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(167,207,223,1) 0%,rgba(35,83,138,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(167,207,223,1) 0%,rgba(35,83,138,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=0 ); /* IE6-9 */
+}
+
+#header a{text-decoration: none;  color: #808080;}
+
+#header ul {height: auto;  padding: 8px 0px;  margin: 0px;}
+
+#header li{ display: inline; padding: 20px;}
+
+#header #nav-link{ border-left: 1px dotted #0bf;  padding-top: 5px;  padding-bottom: 5px;}
+
+#header #nav-link:hover{  color : white;}
+
+#header #nav-link a:hover{  color:#fff;  text-shadow:0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #0bf, 0 0 30px #0bf, 0 0 40px #0bf, 0 0 55px #0bf, 0 0 75px #0bf}
+
+/*** Main ***/
+#main{  padding: 20px; text-align: center;}
+
+#main h1{ }
+
+#main #wrap{
+
+}
+
+#canvas{
+  -moz-border-radius:0px;
+  -webkit-border-radius:0px;
+  border-radius:0px;
+  border: 3px inset #000000;
+  -moz-box-shadow: 10px 10px 5px #656565;
+  -webkit-box-shadow: 10px 10px 5px #656565;
+  -o-box-shadow: 10px 10px 5px #656565;
+  box-shadow: 10px 10px 5px #656565;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color='#6565', Direction=135, Strength=5);
+}

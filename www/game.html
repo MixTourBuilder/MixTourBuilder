@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+  	<head>
+  		<!--  Benjamin Maes - All Rights Reserved - Copyright © 2015
+			.______    _______ .__   __.       __       ___      .___  ___.  __  .__   __. 
+			|   _  \  |   ____||  \ |  |      |  |     /   \     |   \/   | |  | |  \ |  | 
+			|  |_)  | |  |__   |   \|  |      |  |    /  ^  \    |  \  /  | |  | |   \|  | 
+			|   _  <  |   __|  |  . `  | .-.  |  |   /  /_\  \   |  |\/|  | |  | |  . `  | 
+			|  |_)  | |  |____ |  |\   | |  `-'  |  /  _____  \  |  |  |  | |  | |  |\   | 
+			|______/  |_______||__| \__|  \______/ /__/     \__\ |__|  |__| |__| |__| \__| 
+		-->
+    	<meta charset="utf-8">
+    	<title>Mixtour Event</title>
+    	<meta name="viewport" content="width=device-width">
+    	<link rel="stylesheet" href="assets/css/gamePage.css" />
+    	<link rel="stylesheet" href="https://raw.githubusercontent.com/raphaelgoetter/KNACSS/master/css/knacss.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+  	</head>
+  	<body>
+  		<header class="header" id="header">
+			
+			<nav class="nav" id="nav">
+				<li><a href="#">Reglages</a>
+					<ul>
+						<li><a href="index.php">Log Out</a></li>
+					</ul>
+				</li>
+				<li><a href="#">A Propos</a>
+					<ul>
+						<li><a href="https://spielstein.com/games/mixtour/rules/official/">Regle du jeu</a></li>
+						<li><a href="reglement.html">Reglement du concours</a></li>
+					</ul>
+				</li>
+			</nav>
+		</header>
+		<div id="main">
+			<section class="nav-bar-left">
+				<section class="tableau">
+ 					<div class="colgroupe">
+    					<div class="col"></div>
+    					<div class="col"></div>
+  					</div>
+  					<header class="tete">
+    					<div class="cellule">Classement</div>
+  					</header>
+  					<div class="corp">
+  						<!-- <?php generer_classment() ?>  voir avec Nadir -->
+	    				<div class="ligne">
+	      					<div class="cellule">1</div>
+	    				</div>
+	    				<div class="ligne">
+		      				<div class="cellule">2</div>
+	    				</div>
+	    				<div class="ligne">
+		      				<div class="cellule">3</div>
+		      			</div>
+	  				</div>
+				</section>
+			</section>
+			<section id="game">
+				<h1> MixTour </h1>
+				<iframe class="game" id="game" src="game/game.html">
+					<script>
+						var iframe = document.getElementById('game');
+						iframe.src = iframe.src;					
+					</script>		  			
+					<p>Your browser does not support iframes. :(</p>
+				</iframe>
+			</section>
+		</div>
+	</body>
+</html>
