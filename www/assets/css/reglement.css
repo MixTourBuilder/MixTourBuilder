@@ -1,0 +1,76 @@
+body{
+	background: #0099e6;
+}
+
+h1 {
+    color: white;
+    text-shadow: 4px 4px 8px black, 0 0 50px black;
+    text-align: center;
+    font-size: 40px;
+}
+
+h2{
+	text-decoration: underline;
+	color: white;
+    text-shadow: 4px 4px 8px black, 0 0 50px black;
+}
+
+.soc{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}
+
+.cond{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}
+
+.mod{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}
+
+.selec{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}
+
+.dot{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}
+
+.achem{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}
+
+.oblig{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}	
+
+.depot{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}
+
+.donnee{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}
+
+.litige{
+	color : white;
+	text-align:justify;
+	text-shadow: 2px 2px 3px black;
+}
