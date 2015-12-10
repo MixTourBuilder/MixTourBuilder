@@ -66,22 +66,36 @@ projectEngineTestCase.prototype.test_jouer_colonne2 = function () {
     e.init_plateau();
     e.jouer(2);
     e.jouer(3);
+    e.afficher();
     e.deplacer(3, 2, 1);
+    console.log("1");
     assertEquals(e.get_pile(2).get_couleur_dernier_pion(), 2);
     assertEquals(e.get_pile(2).get_nb_pion(), 2);
     assertEquals(e.get_pile(3).get_nb_pion(), 0);
+    e.afficher();
     e.jouer(3);
+    e.afficher();
     e.deplacer(3, 2, 1);
+    e.afficher();
+    console.log("1");
     assertEquals(e.get_pile(2).get_couleur_dernier_pion(), 2);
     assertEquals(e.get_pile(2).get_nb_pion(), 3);
     assertEquals(e.get_pile(3).get_nb_pion(), 0);
+    e.afficher();
     e.jouer(3);
+    e.afficher();
     e.deplacer(3, 2, 1);
+    e.afficher();
+    console.log("1");
     assertEquals(e.get_pile(2).get_couleur_dernier_pion(), 2);
     assertEquals(e.get_pile(2).get_nb_pion(), 4);
     assertEquals(e.get_pile(3).get_nb_pion(), 0);
+    e.afficher();
     e.jouer(3);
+    e.afficher();
     e.deplacer(2, 3, 3);
+    e.afficher();
+    console.log("1");
     assertEquals(e.get_pile(3).get_couleur_dernier_pion(), 2);
     assertEquals(e.get_pile(3).get_nb_pion(), 4);
     assertEquals(e.get_pile(2).get_nb_pion(), 1);
@@ -212,13 +226,12 @@ projectEngineTestCase.prototype.test_evaluation = function () {
     e.jouer(9);//2
     e.deplacer(9, 8, 1); // 2
 
-
     e.jouer(12);//1
     e.jouer(13);//2
     e.deplacer(13, 12, 1);//2
     e.jouer(13);//1
     e.deplacer(13, 12, 1); // 1
-
+    console.log("1");
     e.jouer(18);//2
 
 };
@@ -228,9 +241,11 @@ projectEngineTestCase.prototype.test_hill_climber = function () {
     e.init_plateau();
     console.log("--------------------------");
 
-   /* e.jouer(8);//1
-    e.jouer(9);//2
-    e.deplacer(9, 8, 1); // 2
+    e.jouer(8);//1
+    e.jouer(3);//2
+    //e.deplacer(9, 8, 1); // 2
+
+
 
     e.jouer(12);//1
     e.jouer(13);//2
@@ -238,15 +253,30 @@ projectEngineTestCase.prototype.test_hill_climber = function () {
     e.jouer(13);//1
     e.deplacer(13, 12, 1); // 1
 
-    e.jouer(14);
-    e.afficher();
-
-    e.liste_coup_possible();*/
-
-
-
+    e.jouer(18);//2
 
     e.afficher();
+
+    //e.deplacer(12,13,1);
+
+
+
+    /* e.jouer(8);//1
+     e.jouer(9);//2
+     e.deplacer(9, 8, 1); // 2
+     e.jouer(12);//1
+     e.jouer(13);//2
+     e.deplacer(13, 12, 1);//2
+     e.jouer(13);//1
+     e.deplacer(13, 12, 1); // 1
+     e.jouer(14);
+     e.afficher();
+     e.liste_coup_possible();*/
+
+
+
+
+    /*e.afficher();
     e.jouer_ia();
 
     e.afficher();
@@ -279,6 +309,5 @@ projectEngineTestCase.prototype.test_hill_climber = function () {
     e.afficher();
     e.jouer_ia();
 
-    e.afficher();
-
+    e.afficher(*/
 };

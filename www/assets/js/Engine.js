@@ -131,7 +131,7 @@ var Engine = function () {
         }
 
         if (this.coup_sur_plateau(coup) &&
-            plateau[coup.positionY][coup.positionX].get_nb_pion() === 0 && value !== 0) {
+                plateau[coup.positionY][coup.positionX].get_nb_pion() === 0 && value !== 0) {
             this.sauv_plateau();
             plateau[coup.positionY][coup.positionX].ajouter_pion(joueur_courant);
             nb_pions_total++;
@@ -147,13 +147,17 @@ var Engine = function () {
         var coupA = this.convert_position(depart), coupB = this.convert_position(destination);
         if (this.mouvement_valide(depart, destination, nombre)) {
             this.sauv_plateau();
-            this.deplacer_sans_verif(coupA, coupB, nombre);
+            plateau[coupB.positionY][coupB.positionX].
+                ajouter_pile(plateau[coupA.positionY][coupA.positionX], nombre);
+            plateau[coupA.positionY][coupA.positionX].supprimer_pile(nombre);
 
             if (this.sans_repetition()) {
                 this.verif_score(plateau[coupB.positionY][coupB.positionX]);
                 this.switch_joueur();
             } else {
-                this.deplacer_sans_verif(coupA, coupB, nombre);
+                plateau[coupA.positionY][coupA.positionX].
+                    ajouter_pile(plateau[coupB.positionY][coupB.positionX], nombre);
+                plateau[coupB.positionY][coupB.positionX].supprimer_pile(nombre);
 
                 throw new Exception_deplacer();
             }
@@ -184,9 +188,9 @@ var Engine = function () {
             return "vertical";
         }
         if (Math.abs(coupA.positionX - coupB.positionX) ===
-            Math.abs(coupA.positionY - coupB.positionY)) {
+                Math.abs(coupA.positionY - coupB.positionY)) {
             if ((coupA.positionX > coupB.positionX && coupA.positionY > coupB.positionY) ||
-                (coupA.positionX < coupB.positionX && coupA.positionY < coupB.positionY)) {
+                    (coupA.positionX < coupB.positionX && coupA.positionY < coupB.positionY)) {
                 return "diagonal1";
             }
             return "diagonal2";
@@ -234,7 +238,6 @@ var Engine = function () {
     this.verification_premier = function (depart, destination, position) {
         var coupA = this.convert_position(depart), coupB = this.convert_position(destination),
             tmp_posY = 0, tmp_posX = 1;
-
         if (position === "vertical") {
             tmp_posY = 1;
             tmp_posX = 0;
@@ -245,11 +248,8 @@ var Engine = function () {
             tmp_posY = -1;
             tmp_posX = 1;
         }
-        var value = this.verif_parcours(coupA, coupB, tmp_posX, tmp_posY);
-        var value2 = this.verif_parcours(coupA, coupB, -tmp_posX, -tmp_posY);;
-
-
-        return value || value2;
+        return this.verif_parcours(coupA, coupB, tmp_posX, tmp_posY) ||
+            this.verif_parcours(coupB, coupA, tmp_posX, tmp_posY);
 
     };
 
@@ -262,7 +262,7 @@ var Engine = function () {
         return (position !== 0 && this.verification_distance(depart, destination, position) &&
         this.verification_premier(depart, destination, position) &&
         plateau[coup.positionY][coup.positionX].get_nb_pion() >= nombre &&
-            plateau[coup2.positionY][coup2.positionX].get_nb_pion() > 0);
+        plateau[coup2.positionY][coup2.positionX].get_nb_pion() > 0);
     };
 
     this.sans_repetition = function () {
@@ -316,9 +316,7 @@ var Engine = function () {
     this.jouer_ia = function () {
         var tmp, depart, dest, n;
         this.liste_coup_possible();
-
         //tmp = this.random_ia();
-
         tmp = this.hill_climber();
 
         if (tmp.charCodeAt(0) === 32) {
