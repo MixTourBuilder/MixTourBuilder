@@ -131,7 +131,7 @@ var Engine = function () {
         }
 
         if (this.coup_sur_plateau(coup) &&
-            plateau[coup.positionY][coup.positionX].get_nb_pion() === 0 && value !== 0) {
+                plateau[coup.positionY][coup.positionX].get_nb_pion() === 0 && value !== 0) {
             this.sauv_plateau();
             plateau[coup.positionY][coup.positionX].ajouter_pion(joueur_courant);
             nb_pions_total++;
@@ -188,9 +188,9 @@ var Engine = function () {
             return "vertical";
         }
         if (Math.abs(coupA.positionX - coupB.positionX) ===
-            Math.abs(coupA.positionY - coupB.positionY)) {
+                Math.abs(coupA.positionY - coupB.positionY)) {
             if ((coupA.positionX > coupB.positionX && coupA.positionY > coupB.positionY) ||
-                (coupA.positionX < coupB.positionX && coupA.positionY < coupB.positionY)) {
+                    (coupA.positionX < coupB.positionX && coupA.positionY < coupB.positionY)) {
                 return "diagonal1";
             }
             return "diagonal2";
@@ -210,8 +210,8 @@ var Engine = function () {
             return true;
         }
         return ((position === "diagonal1" || position === "diagonal2") &&
-        (Math.abs(coupA.positionX - coupB.positionX) +
-        Math.abs(coupA.positionY - coupB.positionY)) / 2 <= taille);
+            (Math.abs(coupA.positionX - coupB.positionX) +
+                Math.abs(coupA.positionY - coupB.positionY)) / 2 <= taille);
     };
 
     this.verif_parcours = function (depart, arrivee, tmp_posX, tmp_posY) {
@@ -220,7 +220,7 @@ var Engine = function () {
             tmp_coup.positionX += tmp_posX;
             tmp_coup.positionY += tmp_posY;
             if (tmp_coup.positionX === tmp_arret.positionX &&
-                tmp_coup.positionY === tmp_arret.positionY) {
+                    tmp_coup.positionY === tmp_arret.positionY) {
                 return true;
             }
         }
